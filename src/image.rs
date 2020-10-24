@@ -42,17 +42,15 @@ impl Image {
             let raw_pixels = img.to_rgba().to_vec();
 
             let photon_image = PhotonImage::new(raw_pixels, width, height);
-            return Ok(Image { img: photon_image });
+            Ok(Image { img: photon_image })
+        } else if let Ok(v) = obj.extract::<Vec<u8>>(py) {
+            let img = image::load_from_memory(&*v).unwrap();
+            let (width, height) = img.dimensions();
+            let raw_pixels = img.to_rgba().to_vec();
+            let photon_image = PhotonImage::new(raw_pixels, width, height);
+            Ok(Image { img: photon_image })
         } else {
-            if let Ok(v) = obj.extract::<Vec<u8>>(py) {
-                let img = image::load_from_memory(&*v).unwrap();
-                let (width, height) = img.dimensions();
-                let raw_pixels = img.to_rgba().to_vec();
-                let photon_image = PhotonImage::new(raw_pixels, width, height);
-                return Ok(Image { img: photon_image });
-            } else {
-                return Err(PyTypeError::new_err("Could not extract an image"));
-            }
+            Err(PyTypeError::new_err("Could not extract an image"))
         }
     }
     #[getter]
@@ -75,20 +73,20 @@ impl Image {
 
     #[getter]
     fn size(&self) -> PyResult<(u32, u32)> {
-        let height = *&self.img.get_height();
-        let width = *&self.img.get_width();
+        let height = self.img.get_height();
+        let width = self.img.get_width();
         let tup = (width, height);
         Ok(tup)
     }
 
     #[getter]
     fn height(&self) -> PyResult<u32> {
-        Ok(*&self.img.get_height())
+        Ok(self.img.get_height())
     }
 
     #[getter]
     fn width(&self) -> PyResult<u32> {
-        Ok(*&self.img.get_width())
+        Ok(self.img.get_width())
     }
 
     #[getter]

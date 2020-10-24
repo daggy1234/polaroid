@@ -1,5 +1,5 @@
 use crate::image::Image;
-use image;
+use image::imageops;
 use image::{GenericImageView, ImageRgba8};
 use photon_rs::conv;
 use photon_rs::helpers;
@@ -53,14 +53,14 @@ impl Image {
 
     fn unsharpen(&mut self, sigma: f32, treshold: i32) -> PyResult<()> {
         let img = helpers::dyn_image_from_raw(&mut self.img);
-        let invert = ImageRgba8(image::imageops::unsharpen(&img, sigma, treshold));
+        let invert = ImageRgba8(imageops::unsharpen(&img, sigma, treshold));
         self.img = PhotonImage::new(invert.raw_pixels(), invert.width(), invert.height());
         Ok(())
     }
 
     fn brighten(&mut self, treshold: i32) -> PyResult<()> {
         let img = helpers::dyn_image_from_raw(&mut self.img);
-        let invert = ImageRgba8(image::imageops::brighten(&img, treshold));
+        let invert = ImageRgba8(imageops::brighten(&img, treshold));
         self.img = PhotonImage::new(invert.raw_pixels(), invert.width(), invert.height());
         Ok(())
     }

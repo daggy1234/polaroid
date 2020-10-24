@@ -14,5 +14,7 @@ flake8 = "^3.8.4"
 setuptools-rust = "^0.11.3"
 
 [build-system]
-requires = ["maturin"]
-build-backend = "maturin"
+requires = ["setuptools>=41", "wheel", "setuptools_scm[toml]>=3.4.3"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
