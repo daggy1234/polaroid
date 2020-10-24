@@ -8,7 +8,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       CIBW_SKIP: cp27-* cp35-* cp39-*
-      CIBW_BEFORE_BUILD: pip install setuptools setuptools-rust wheel toml
+      CIBW_BEFORE_BUILD: |
+        pip install setuptools-rust
+        pip list
+
 
     strategy:
       matrix:
@@ -24,7 +27,7 @@ jobs:
 
       - name: Install Deps
         run: |
-          python -m pip install cibuildwheel==1.6.3
+          python -m pip install cibuildwheel==1.6.3 setuptools-rust
 
       - name: Build wheels
         run: |
