@@ -2,24 +2,11 @@ import os
 import sys
 import re
 from setuptools import setup
+from setuptools_rust import Binding, RustExtension
 from setuptools.command.sdist import sdist as SdistCommand
 
 with open('polaroid/__init__.py') as f:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
-
-try:
-    from setuptools_rust import Binding, RustExtension
-except ImportError:
-    import subprocess
-    errno = subprocess.call(
-        [sys.executable, '-m', 'pip', 'install', 'setuptools-rust'])
-    if errno:
-        print("Please install setuptools-rust package")
-        raise SystemExit(errno)
-    else:
-        from setuptools_rust import Binding, RustExtension
-
-
 
 setup_requires = ['setuptools-rust>=0.9.2']
 install_requires = []
