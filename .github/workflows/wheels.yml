@@ -7,7 +7,7 @@ jobs:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     env:
-      CIBW_BUILD: cp3?-*
+      CIBW_SKIP: cp27-* cp35-* cp39-*
 
     strategy:
       matrix:
