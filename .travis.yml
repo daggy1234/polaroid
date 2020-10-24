@@ -1,0 +1,89 @@
+language: rust
+cache: cargo
+os: linux
+dist: bionic
+jobs:
+  include:
+    - name: "Unit tests"
+      script: |
+        python3 setup.py bdist_wheel
+        pip install dist/*.whl
+        # FIXME: also run unit tests once they are not network based
+    - name: "Sdist"
+      if: tag IS present
+      script: |
+        python3 setup.py sdist
+        twine upload dist/*
+    - name: "Linux x86_64"
+      if: tag IS present
+      services: docker
+      env:
+        - CIBW_BUILD="*-manylinux_x86_64"
+    - name: "Linux i686"
+      if: tag IS present
+      services: docker
+      env:
+        - CIBW_BUILD="*-manylinux_i686"
+    - name: "Linux ARMv8"
+      if: tag IS present
+      services: docker
+      arch: arm64
+    - name: "macOS"
+      if: tag IS present
+      os: osx
+      osx_image: xcode11
+      before_install:
+        - which sccache || cargo install sccache --version $SCCACHE_VERSION
+      env:
+        - CIBW_SKIP="$CIBW_SKIP cp36-*"  # Also skip Python 3.6 as build is too slow
+    - name: "Windows"
+      if: tag IS present
+      os: windows           # Windows 10.0.17134 N/A Build 17134
+      before_install:
+        - choco install python --version 3.8.0
+        - choco install strawberryperl
+      env:
+        - PATH=/c/Python38:/c/Python38/Scripts:/c/Strawberry/perl/site/bin:/c/Strawberry/perl/bin:/c/Strawberry/c/bin:$PATH
+        - RUSTFLAGS="-Ctarget-feature=+crt-static"
+        - CIBW_ENVIRONMENT='' # Disable sccache
+        - CIBW_BEFORE_BUILD="python -m pip install --upgrade pip"  # Upgrade pip to a fixed version
+        - CIBW_SKIP="$CIBW_SKIP cp36-*"  # Also skip Python 3.6 as build is too slow
+env:
+  global:
+    - SCCACHE_VERSION=0.2.13
+    - CIBW_BEFORE_ALL_LINUX="curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y && yum install -y openssl-devel && RUSTC_WRAPPER= cargo install sccache --version $SCCACHE_VERSION"
+    - CIBW_BUILD_VERBOSITY="1"   # Make some more noise so that travis doesn't stall
+    - CIBW_ENVIRONMENT='PATH="$PATH:$HOME/.cargo/bin" RUSTC_WRAPPER=sccache'
+    - CIBW_SKIP="cp27-* cp34-* cp35-* pp* *-win32"
+    - TWINE_USERNAME="__token__"
+before_install:
+  - |
+    if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+        sudo apt-get -y install python3-pip
+    fi
+install:
+  - |
+    pip3 install --upgrade pip wheel setuptools setuptools-rust
+    pip3 install --upgrade cibuildwheel
+    pip3 install --upgrade twine
+script:
+  - |
+    if [ "$TRAVIS_OS_NAME" = "windows" ]; then
+        # XXX Disabled for now rustup target add i686-pc-windows-msvc
+        python -m cibuildwheel --output-dir wheelhouse
+    else
+        python3 -m cibuildwheel --output-dir wheelhouse
+    fi
+    twine upload wheelhouse/*
+deploy:
+  provider: releases
+  api_key: $RELEASE_TOKEN
+  file_glob: true
+  skip_cleanup: true
+  file:
+    - wheelhouse/*  # wheels
+    - dist/*.tar.gz  # sdist
+  draft: true
+  on:
+    tags: true
+  name: $TRAVIS_TAG (DRAFT)
