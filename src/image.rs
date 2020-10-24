@@ -5,7 +5,6 @@ use pyo3::exceptions::PyTypeError;
 use pyo3::prelude::*;
 use pyo3::types::PyBytes;
 use pyo3::Python;
-use std::fmt::Debug;
 
 #[pyclass]
 pub struct Image {
@@ -120,10 +119,11 @@ impl Image {
 
     pub fn save_bytes(&mut self) -> PyResult<&PyBytes> {
         unsafe {
-            Python::with_gil(|py| -> PyResult<&PyBytes> {
+            Python::with_gil(|_py| -> PyResult<&PyBytes> {
                 let npy = Python::assume_gil_acquired();
-                let temp = self.img.get_raw_pixels().as_slice();
-                Ok(PyBytes::new(npy, temp))
+                let temp = self.img.get_raw_pixels();
+                let buf = temp.as_slice();
+                Ok(PyBytes::new(npy, buf))
             })
         }
     }

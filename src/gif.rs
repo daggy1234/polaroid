@@ -1,9 +1,9 @@
 use crate::image::Image;
 use image::gif::{Decoder, Encoder};
+use image::AnimationDecoder;
 use image::GenericImageView;
-use image::{AnimationDecoder, ImageDecoder};
 use photon_rs::PhotonImage;
-use pyo3::exceptions::{PyRuntimeError, PyTypeError};
+use pyo3::exceptions::PyRuntimeError;
 use pyo3::prelude::*;
 use pyo3::types::{PyBytes, PyList};
 use std::fs::File;
@@ -17,14 +17,14 @@ impl Gif {
     #[new]
     fn open(_py: Python, path: &str) -> PyResult<Self> {
         let file = File::open(path)?;
-        let mut decoder = Decoder::new(file).unwrap();
+        let decoder = Decoder::new(file).unwrap();
         let frames = decoder.into_frames();
         let frames = frames.collect_frames().expect("error decoding gif");
         let mut f_vec = Vec::new();
         for frame in frames {
             let buffer = frame.into_buffer();
             let base = image::DynamicImage::ImageRgba8(buffer);
-            let mut photon_image = PhotonImage::new(base.raw_pixels(), base.width(), base.height());
+            let photon_image = PhotonImage::new(base.raw_pixels(), base.width(), base.height());
             f_vec.push(Image { img: photon_image })
         }
         Ok(Gif { frames: f_vec })
@@ -68,7 +68,7 @@ impl Gif {
             let _ret = encoder.encode_frames(vec).unwrap();
         }
         unsafe {
-            Python::with_gil(|py| -> PyResult<&PyBytes> {
+            Python::with_gil(|_py| -> PyResult<&PyBytes> {
                 let npy = Python::assume_gil_acquired();
                 let temp = byt;
                 let byt = temp.as_slice();
