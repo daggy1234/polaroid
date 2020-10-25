@@ -37,8 +37,7 @@ setup(name='polaroid',
           'Topic :: Internet',
           'Topic :: Software Development :: Libraries',
           'Topic :: Software Development :: Libraries :: Python Modules',
-          'Topic :: Utilities',
-          'Topic :: Images'
+          'Topic :: Utilities'
       ],
       rust_extensions=[
           RustExtension('polaroid.polaroid', 'Cargo.toml', binding=Binding.PyO3)],
