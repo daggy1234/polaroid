@@ -21,5 +21,5 @@ __all__ = ["Image","Gif"]
 VersionInfo = namedtuple('VersionInfo',
                          'major minor micro releaselevel serial')
 
-version_info = VersionInfo(major=0, minor=2, micro=1, releaselevel='development',
+version_info = VersionInfo(major=0, minor=2, micro=4, releaselevel='development',
                            serial=0)
