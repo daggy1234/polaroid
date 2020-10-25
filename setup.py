@@ -12,6 +12,7 @@ setup_requires = ['setuptools-rust>=0.9.2']
 install_requires = []
 
 setup(name='polaroid',
+      author="Daggy1234",
       version=version,
       description="Hyper Fast and safe image manipulation library for python . Powered by rust.",
       long_description=open("README.md").read(),
@@ -19,8 +20,9 @@ setup(name='polaroid',
       license="MIT",
       url="https://github.com/Daggy1234/polaroid",
       project_urls={
+          "Repository": "https://github.com/Daggy1234/polaroid",
           "Issue tracker": "https://github.com/Daggy1234/polaroid/issues",
-          "discord": "https://server.daggy.tech"
+          "Chat": "https://server.daggy.tech"
       },
       classifiers=[
           "Intended Audience :: Developers",
@@ -34,6 +36,7 @@ setup(name='polaroid',
           "Programming Language :: Python :: 3.6",
           "Programming Language :: Python :: 3.7",
           "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
           'Topic :: Internet',
           'Topic :: Software Development :: Libraries',
           'Topic :: Software Development :: Libraries :: Python Modules',

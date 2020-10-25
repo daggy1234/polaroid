@@ -13,11 +13,13 @@ impl Image {
     }
 
     fn fliph(&mut self) -> PyResult<()> {
-        Ok(transform::fliph(&mut self.img))
+        transform::fliph(&mut self.img);
+        Ok(())
     }
 
     fn flipv(&mut self) -> PyResult<()> {
-        Ok(transform::flipv(&mut self.img))
+        transform::flipv(&mut self.img);
+        Ok(())
     }
 
     fn resize(&mut self, width: u32, height: u32, filter: u8) -> PyResult<()> {
@@ -31,14 +33,14 @@ impl Image {
         };
         match resample {
             Ok(filter) => {
-                self.img = transform::resize(&mut self.img, width, height, filter);
+                self.img = transform::resize(&self.img, width, height, filter);
                 Ok(())
             }
             Err(error) => Err(error),
         }
     }
     fn rotate90(&mut self) -> PyResult<()> {
-        let dyn_image = helpers::dyn_image_from_raw(&mut self.img);
+        let dyn_image = helpers::dyn_image_from_raw(&self.img);
         let rotated_image = image::ImageRgba8(image::imageops::rotate90(&dyn_image));
         self.img = PhotonImage::new(
             rotated_image.raw_pixels(),
@@ -49,7 +51,7 @@ impl Image {
     }
 
     fn rotate180(&mut self) -> PyResult<()> {
-        let dyn_image = helpers::dyn_image_from_raw(&mut self.img);
+        let dyn_image = helpers::dyn_image_from_raw(&self.img);
         let rotated_image = image::ImageRgba8(image::imageops::rotate180(&dyn_image));
         self.img = PhotonImage::new(
             rotated_image.raw_pixels(),
@@ -60,7 +62,7 @@ impl Image {
     }
 
     fn rotate270(&mut self) -> PyResult<()> {
-        let dyn_image = helpers::dyn_image_from_raw(&mut self.img);
+        let dyn_image = helpers::dyn_image_from_raw(&self.img);
         let rotated_image = image::ImageRgba8(image::imageops::rotate270(&dyn_image));
         self.img = PhotonImage::new(
             rotated_image.raw_pixels(),
@@ -71,7 +73,7 @@ impl Image {
     }
 
     fn thumbnail(&mut self, width: u32, height: u32) -> PyResult<()> {
-        let dyn_image = helpers::dyn_image_from_raw(&mut self.img);
+        let dyn_image = helpers::dyn_image_from_raw(&self.img);
         let thumbnail = image::ImageRgba8(image::imageops::thumbnail(&dyn_image, width, height));
         self.img = PhotonImage::new(
             thumbnail.raw_pixels(),

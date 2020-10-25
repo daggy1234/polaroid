@@ -34,6 +34,7 @@ impl Gif {
         Ok(self.frames.iter().map(|img| img.dup()).collect())
     }
 
+    #[allow(clippy::needless_return)]
     #[staticmethod]
     fn save_bytes(ts: &PyList) -> PyResult<&PyBytes> {
         let mut byt: Vec<u8> = Vec::new();
@@ -44,7 +45,6 @@ impl Gif {
                 .iter()
                 .map(|t| -> image::Frame {
                     if let Ok(obj) = t.extract::<Image>() {
-                        println!("Some data");
                         let img = &obj.img;
                         let raw_pixels = img.get_raw_pixels();
                         let width = img.get_width();
@@ -55,16 +55,12 @@ impl Gif {
                             None => Err(PyRuntimeError::new_err("Broke")),
                         };
                         let frame = image::Frame::new(buffs.unwrap());
-                        println!("frame");
                         return frame;
                     } else {
-                        println!("Some");
                         panic!("Err")
                     };
                 })
                 .collect();
-
-            println!("Data done");
             let _ret = encoder.encode_frames(vec).unwrap();
         }
         unsafe {
@@ -76,17 +72,15 @@ impl Gif {
             })
         }
     }
-
+    #[allow(clippy::needless_return)]
     #[staticmethod]
     fn save(path: &str, ts: &PyList) -> PyResult<()> {
         let file_out = File::create(path)?;
         let mut encoder = Encoder::new(file_out);
-        println!("{}", ts.len());
         let vec: Vec<image::Frame> = ts
             .iter()
             .map(|t| -> image::Frame {
                 if let Ok(obj) = t.extract::<Image>() {
-                    println!("Some data");
                     let img = &obj.img;
                     let raw_pixels = img.get_raw_pixels();
                     let width = img.get_width();
@@ -97,16 +91,15 @@ impl Gif {
                         None => Err(PyRuntimeError::new_err("Broke")),
                     };
                     let frame = image::Frame::new(buffs.unwrap());
-                    println!("frame");
                     return frame;
                 } else {
-                    println!("Some");
                     panic!("Err")
                 };
             })
             .collect();
 
         println!("Data done");
-        Ok(encoder.encode_frames(vec).unwrap())
+        encoder.encode_frames(vec).unwrap();
+        Ok(())
     }
 }

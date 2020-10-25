@@ -56,7 +56,11 @@ impl Image {
     #[getter]
     fn format(&self) -> PyResult<&str> {
         let format = image::guess_format(self.img.get_raw_pixels().as_slice());
-        let string: &str = match format.unwrap() {
+        let res = match format {
+            Ok(f) => f,
+            Err(_e) => return Ok("unknown"),
+        };
+        let string: &str = match res {
             image::ImageFormat::PNG => "png",
             image::ImageFormat::JPEG => "jpeg",
             image::ImageFormat::GIF => "gif",
@@ -68,6 +72,7 @@ impl Image {
             image::ImageFormat::ICO => "ico",
             image::ImageFormat::HDR => "hdr",
         };
+
         Ok(string)
     }
 
@@ -112,7 +117,8 @@ impl Image {
 
         let img_buffer = ImageBuffer::from_vec(width, height, raw_pixels).unwrap();
         let dynimage = image::DynamicImage::ImageRgba8(img_buffer);
-        Ok(dynimage.save(img_path).unwrap())
+        dynimage.save(img_path).unwrap();
+        Ok(())
     }
 
     pub fn save_bytes(&mut self) -> PyResult<&PyBytes> {
@@ -124,5 +130,19 @@ impl Image {
                 Ok(PyBytes::new(npy, buf))
             })
         }
+    }
+}
+
+#[pyproto]
+impl pyo3::class::basic::PyObjectProtocol for Image {
+    fn __repr__(&self) -> PyResult<String> {
+        let height = &self.height().unwrap();
+        let width = &self.width().unwrap();
+        let format = &self.format().unwrap();
+        let mode = &self.mode().unwrap();
+        Ok(format!(
+            "<polaroid.Image height={} width={} format='{}' mode='{}'>",
+            height, width, format, mode
+        ))
     }
 }

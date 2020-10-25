@@ -4,6 +4,7 @@ use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 #[pymethods]
 impl Image {
+    #[allow(clippy::unit_arg)]
     fn filter(&mut self, filter: &str) -> PyResult<()> {
         let im = &mut self.img;
         match filter {
