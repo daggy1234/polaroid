@@ -4,7 +4,7 @@ os: linux
 dist: bionic
 jobs:
   include:
-    - name: "Unit tests"
+    - name: "Wheel Build"
       script: |
         python3 setup.py bdist_wheel
         pip install dist/*.whl
@@ -56,6 +56,7 @@ env:
     - CIBW_ENVIRONMENT='PATH="$PATH:$HOME/.cargo/bin" RUSTC_WRAPPER=sccache'
     - CIBW_SKIP="cp27-* cp34-* cp35-* pp* *-win32"
     - TWINE_USERNAME="__token__"
+    - TWINE_PASSWORD=$TWINE_KEY
 before_install:
   - |
     if [ "$TRAVIS_OS_NAME" = "linux" ]; then
@@ -64,8 +65,10 @@ before_install:
 install:
   - |
     pip3 install --upgrade pip wheel setuptools setuptools-rust
+    pip3 install --upgrade setuptools-rust
     pip3 install --upgrade cibuildwheel
     pip3 install --upgrade twine
+
 script:
   - |
     if [ "$TRAVIS_OS_NAME" = "windows" ]; then
