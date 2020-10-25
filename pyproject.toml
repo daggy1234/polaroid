@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "polaroid"
-version = "0.2.4"
+version = "0.2.5"
 description = "Hyper Fast and safe image manipulation library for python . Powered by rust. "
 license="MIT"
 authors = ["Arnav Jindal <60603110+Daggy1234@users.noreply.github.com>"]
@@ -14,7 +14,4 @@ flake8 = "^3.8.4"
 setuptools-rust = "^0.11.3"
 
 [build-system]
-requires = ["setuptools>=41", "wheel", "setuptools_scm[toml]>=3.4.3"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools_scm]
+requires = ["setuptools", "wheel", "setuptools-rust"]
