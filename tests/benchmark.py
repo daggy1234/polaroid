@@ -51,6 +51,7 @@ def polaroid_image_save(byt: bytes):
     im = PolaroidImage(byt)
     im.solarize()
     im.save("solarize.png")
+    return "solarize.png"
 
 
 @timer
@@ -58,6 +59,7 @@ def wand_image_save(byt: bytes):
     with WandImage(blob=byt) as img:
         img.solarize()
         img.save(filename="solarize.png")
+        return "solarize.png"
 
 
 @timer
@@ -65,6 +67,7 @@ def pil_image_save(byt: bytes):
     im = PillowImage.open(BytesIO(byt)).convert('RGB')
     ImageOps.solarize(im)
     im.save("solarize.png")
+    return "solarize.png"
 
 
 @timer

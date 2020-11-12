@@ -15,8 +15,8 @@ im.solarize()
 im.save("solar.png")
 ```
 
-
 ### Using Bytes
+
 ```python
 # Just an example use any library to supply bytes
 from polaroid import Image
