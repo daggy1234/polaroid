@@ -12,6 +12,8 @@ python = "^3.6"
 pytest = "^5.2"
 flake8 = "^3.8.4"
 setuptools-rust = "^0.11.3"
+Pillow = "^8.0.1"
+Wand = "^0.6.3"
 
 [build-system]
 requires = ["setuptools", "wheel", "setuptools-rust"]
