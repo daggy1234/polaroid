@@ -17,6 +17,7 @@ def timer(function):
             function(*args, **kwargs)
             end = time.perf_counter()
             time_list.append(end - start)
+            i += 0
         return round((sum(time_list) / len(time_list)) * 1000, 2)
 
     return wrapper
@@ -27,7 +28,7 @@ def pil_gray(byt: bytes):
     im = PillowImage.open(BytesIO(byt))
     ImageOps.grayscale(im)
     io = BytesIO()
-    im.save(io, format="png")
+    im.save(io, format=im.format)
     return im
 
 
@@ -42,7 +43,7 @@ def polaroid_gray(byt: bytes):
 def wand_gray(byt: bytes):
     with WandImage(blob=byt) as img:
         img.transform_colorspace("gray")
-        byt = img.make_blob()
+        return img.make_blob()
 
 
 @timer
@@ -61,7 +62,7 @@ def wand_image_save(byt: bytes):
 
 @timer
 def pil_image_save(byt: bytes):
-    im = PillowImage.open(BytesIO(byt))
+    im = PillowImage.open(BytesIO(byt)).convert('RGB')
     ImageOps.solarize(im)
     im.save("solarize.png")
 
@@ -71,7 +72,7 @@ def io_read_pillow(path: str) -> bytes:
     im = PillowImage.open(path)
     im.resize((100, 100), PillowImage.NEAREST)
     io = BytesIO()
-    im.save(io, format="png")
+    im.save(io, format=im.format)
     return io.read()
 
 
@@ -102,7 +103,7 @@ def pil_vs_polaroid():
 def pil_vs_polaroid_save():
     byt = open("blue.png", "rb").read()
     res_polaroid = polaroid_image_save(byt)
-    res_pillow = polaroid_image_save(byt)
+    res_pillow = pil_image_save(byt)
     res_wand = wand_image_save(byt)
     os.remove("solarize.png")
     print(f"Pillow   took: {res_pillow}")

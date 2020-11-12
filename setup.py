@@ -1,9 +1,7 @@
-import os
-import sys
 import re
 from setuptools import setup
 from setuptools_rust import Binding, RustExtension
-from setuptools.command.sdist import sdist as SdistCommand
+
 
 with open('polaroid/__init__.py') as f:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
