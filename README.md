@@ -1,4 +1,7 @@
 # Polaroid
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/111b7ca81d034fbaaeda9f038c0c4156)](https://app.codacy.com/gh/Daggy1234/polaroid?utm_source=github.com&utm_medium=referral&utm_content=Daggy1234/polaroid&utm_campaign=Badge_Grade)
+
 ![Travis](https://img.shields.io/travis/com/daggy1234/polaroid?logo=travis) ![Actions](https://img.shields.io/github/workflow/status/Daggy1234/polaroid/Continuous%20Integration?logo=github) ![License](https://img.shields.io/github/license/Daggy1234/polaroid?color=red) ![Wheel](https://img.shields.io/pypi/wheel/polaroid?color=blue&logo=pypi) ![Python](https://img.shields.io/pypi/pyversions/polaroid?color=yellow&logo=python&logoColor=yellow) ![Version](https://img.shields.io/pypi/v/polaroid) ![Chat](https://img.shields.io/discord/491175207122370581?color=gray&logo=discord)
 ## Hyper fast image processing
 
