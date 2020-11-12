@@ -1,9 +1,5 @@
 use crate::image::Image;
-use image::imageops;
-use image::{GenericImageView, ImageRgba8};
 use photon_rs::conv;
-use photon_rs::helpers;
-use photon_rs::PhotonImage;
 use pyo3::prelude::*;
 
 #[pymethods]
@@ -62,20 +58,6 @@ impl Image {
     }
     fn sobel_vertical(&mut self) -> PyResult<()> {
         conv::sobel_vertical(&mut self.img);
-        Ok(())
-    }
-
-    fn unsharpen(&mut self, sigma: f32, treshold: i32) -> PyResult<()> {
-        let img = helpers::dyn_image_from_raw(&self.img);
-        let invert = ImageRgba8(imageops::unsharpen(&img, sigma, treshold));
-        self.img = PhotonImage::new(invert.raw_pixels(), invert.width(), invert.height());
-        Ok(())
-    }
-
-    fn brighten(&mut self, treshold: i32) -> PyResult<()> {
-        let img = helpers::dyn_image_from_raw(&self.img);
-        let invert = ImageRgba8(imageops::brighten(&img, treshold));
-        self.img = PhotonImage::new(invert.raw_pixels(), invert.width(), invert.height());
         Ok(())
     }
 }

@@ -1,5 +1,9 @@
 use crate::image::Image;
+use image::imageops;
+use image::{GenericImageView, ImageRgba8};
 use photon_rs::effects;
+use photon_rs::helpers;
+use photon_rs::PhotonImage;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 
@@ -59,6 +63,25 @@ impl Image {
     }
     fn offset_green(&mut self, offset: u32) -> PyResult<()> {
         effects::offset_green(&mut self.img, offset);
+        Ok(())
+    }
+    fn unsharpen(&mut self, sigma: f32, treshold: i32) -> PyResult<()> {
+        let img = helpers::dyn_image_from_raw(&self.img);
+        let invert = ImageRgba8(imageops::unsharpen(&img, sigma, treshold));
+        self.img = PhotonImage::new(invert.raw_pixels(), invert.width(), invert.height());
+        Ok(())
+    }
+
+    fn brighten(&mut self, treshold: i32) -> PyResult<()> {
+        let img = helpers::dyn_image_from_raw(&self.img);
+        let invert = ImageRgba8(imageops::brighten(&img, treshold));
+        self.img = PhotonImage::new(invert.raw_pixels(), invert.width(), invert.height());
+        Ok(())
+    }
+    fn invert(&mut self) -> PyResult<()> {
+        let mut img = helpers::dyn_image_from_raw(&self.img);
+        imageops::invert(&mut img);
+        self.img = PhotonImage::new(img.raw_pixels(), img.width(), img.height());
         Ok(())
     }
 }

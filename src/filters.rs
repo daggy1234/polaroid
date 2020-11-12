@@ -33,7 +33,7 @@ impl Image {
             "vintage" => Ok(filters::filter(im, "vintage")),
             "purfume" => Ok(filters::filter(im, "perfume")),
             "serenity" => Ok(filters::filter(im, "serenity")),
-            _ => Err(PyValueError::new_err("Valid Filter")),
+            _ => Err(PyValueError::new_err("Invalid Filter")),
         }
     }
 }

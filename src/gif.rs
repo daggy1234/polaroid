@@ -8,6 +8,29 @@ use pyo3::prelude::*;
 use pyo3::types::{PyBytes, PyList};
 use std::fs::File;
 
+#[allow(clippy::needless_return)]
+pub fn get_vec_frame(list: &PyList) -> Vec<image::Frame> {
+    list.iter()
+        .map(|t| -> image::Frame {
+            if let Ok(obj) = t.extract::<Image>() {
+                let img = &obj.img;
+                let raw_pixels = img.get_raw_pixels();
+                let width = img.get_width();
+                let height = img.get_height();
+
+                let buffs = match image::RgbaImage::from_raw(width, height, raw_pixels) {
+                    Some(b) => Ok(b),
+                    None => Err(PyRuntimeError::new_err("Broke")),
+                };
+                let frame = image::Frame::new(buffs.unwrap());
+                return frame;
+            } else {
+                panic!("Err")
+            };
+        })
+        .collect()
+}
+
 #[pyclass]
 pub struct Gif {
     frames: Vec<Image>,
@@ -41,28 +64,10 @@ impl Gif {
 
         {
             let mut encoder = Encoder::new(&mut byt);
-            let vec: Vec<image::Frame> = ts
-                .iter()
-                .map(|t| -> image::Frame {
-                    if let Ok(obj) = t.extract::<Image>() {
-                        let img = &obj.img;
-                        let raw_pixels = img.get_raw_pixels();
-                        let width = img.get_width();
-                        let height = img.get_height();
-
-                        let buffs = match image::RgbaImage::from_raw(width, height, raw_pixels) {
-                            Some(b) => Ok(b),
-                            None => Err(PyRuntimeError::new_err("Broke")),
-                        };
-                        let frame = image::Frame::new(buffs.unwrap());
-                        return frame;
-                    } else {
-                        panic!("Err")
-                    };
-                })
-                .collect();
+            let vec = get_vec_frame(ts);
             let _ret = encoder.encode_frames(vec).unwrap();
         }
+
         unsafe {
             Python::with_gil(|_py| -> PyResult<&PyBytes> {
                 let npy = Python::assume_gil_acquired();
@@ -77,28 +82,7 @@ impl Gif {
     fn save(path: &str, ts: &PyList) -> PyResult<()> {
         let file_out = File::create(path)?;
         let mut encoder = Encoder::new(file_out);
-        let vec: Vec<image::Frame> = ts
-            .iter()
-            .map(|t| -> image::Frame {
-                if let Ok(obj) = t.extract::<Image>() {
-                    let img = &obj.img;
-                    let raw_pixels = img.get_raw_pixels();
-                    let width = img.get_width();
-                    let height = img.get_height();
-
-                    let buffs = match image::RgbaImage::from_raw(width, height, raw_pixels) {
-                        Some(b) => Ok(b),
-                        None => Err(PyRuntimeError::new_err("Broke")),
-                    };
-                    let frame = image::Frame::new(buffs.unwrap());
-                    return frame;
-                } else {
-                    panic!("Err")
-                };
-            })
-            .collect();
-
-        println!("Data done");
+        let vec = get_vec_frame(ts);
         encoder.encode_frames(vec).unwrap();
         Ok(())
     }

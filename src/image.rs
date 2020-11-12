@@ -16,6 +16,15 @@ impl Clone for Image {
     }
 }
 
+pub fn extract_image(obj: PyObject) -> Image {
+    Python::with_gil(|py| -> Image {
+        match obj.extract::<Image>(py) {
+            Ok(val) => val,
+            Err(_e) => panic!("Unable to extract Image from object"),
+        }
+    })
+}
+
 impl Image {
     pub(crate) fn dup(&self) -> Image {
         let dyn_image = helpers::dyn_image_from_raw(&self.img);
