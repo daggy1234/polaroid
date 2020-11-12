@@ -3,7 +3,7 @@ name = "polaroid"
 version = "0.2.6"
 authors = ["Arnav Jindal <60603110+Daggy1234@users.noreply.github.com>"]
 edition = "2018"
-description="Hyper Fast and safe image manipulation library for python . Powered by rust. "
+description="Hyper Fast and safe image manipulation library for python. Powered by rust."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
