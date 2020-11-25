@@ -134,7 +134,10 @@ impl Image {
         let mut img = helpers::dyn_image_from_raw(&self.img);
         img = image::ImageRgba8(img.to_rgba());
         let mut buffer = vec![];
-        img.write_to(&mut buffer, image::ImageOutputFormat::PNG)?;
+        match img.write_to(&mut buffer, image::ImageOutputFormat::PNG) {
+            Ok(..) => ..,
+            Err(e) => panic!("Error: {}", e),
+        };
         unsafe {
             Python::with_gil(|_py| -> PyResult<&PyBytes> {
                 let npy = Python::assume_gil_acquired();
