@@ -4,3 +4,4 @@ build/
 user-test/
 /Cargo.lock
 /poetry.lock
+/pythonenv3.8
