@@ -54,7 +54,7 @@ env:
     - CIBW_BEFORE_ALL_LINUX="curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y && yum install -y openssl-devel && RUSTC_WRAPPER= cargo install sccache --version $SCCACHE_VERSION"
     - CIBW_BUILD_VERBOSITY="1"   # Make some more noise so that travis doesn't stall
     - CIBW_ENVIRONMENT='PATH="$PATH:$HOME/.cargo/bin" RUSTC_WRAPPER=sccache'
-    - CIBW_SKIP="cp27-* cp34-* cp35-* pp* *-win32"
+    - CIBW_SKIP="cp27-* cp34-* cp35-* pp*"
     - TWINE_USERNAME="__token__"
     - TWINE_PASSWORD=$TWINE_KEY
 before_install:
