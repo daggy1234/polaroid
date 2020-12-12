@@ -10,7 +10,7 @@ description="Hyper Fast and safe image manipulation library for python. Powered 
 [dependencies]
 pyo3 = { version="0.12.3", features = ["extension-module"] }
 photon-rs="0.2.0"
-image="0.21.1"
+image="0.23.12"
 
 [lib]
 name = "polaroid"
