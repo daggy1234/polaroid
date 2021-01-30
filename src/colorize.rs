@@ -2,7 +2,6 @@ use crate::image::Image;
 use crate::rgb::extract_rgb;
 use image::GenericImageView;
 use image::{DynamicImage, Luma, Rgb, Rgba};
-use imageproc;
 use imageproc::map::map_colors;
 use imageproc::pixelops::weighted_sum;
 use photon_rs::{helpers::dyn_image_from_raw, PhotonImage};

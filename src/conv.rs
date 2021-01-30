@@ -75,11 +75,11 @@ impl Image {
         signed: bool,
     ) -> PyResult<()> {
         let opts = HogOptions {
-            orientations: orientations,
-            signed: signed,
+            orientations,
+            signed,
             cell_side: cell_size,
             block_side: block_size,
-            block_stride: block_stride,
+            block_stride,
         };
         let dyn_img = helpers::dyn_image_from_raw(&self.img).to_luma8();
         let (width, height) = dyn_img.dimensions();
