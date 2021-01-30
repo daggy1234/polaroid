@@ -1,5 +1,5 @@
 use crate::image::Image;
-use image::gif::{Decoder, Encoder};
+use image::codecs::gif::{GifDecoder, GifEncoder};
 use image::AnimationDecoder;
 use image::GenericImageView;
 use photon_rs::PhotonImage;
@@ -40,14 +40,14 @@ impl Gif {
     #[new]
     fn open(_py: Python, path: &str) -> PyResult<Self> {
         let file = File::open(path)?;
-        let decoder = Decoder::new(file).unwrap();
+        let decoder = GifDecoder::new(file).unwrap();
         let frames = decoder.into_frames();
         let frames = frames.collect_frames().expect("error decoding gif");
         let mut f_vec = Vec::new();
         for frame in frames {
             let buffer = frame.into_buffer();
             let base = image::DynamicImage::ImageRgba8(buffer);
-            let photon_image = PhotonImage::new(base.raw_pixels(), base.width(), base.height());
+            let photon_image = PhotonImage::new(base.to_bytes(), base.width(), base.height());
             f_vec.push(Image { img: photon_image })
         }
         Ok(Gif { frames: f_vec })
@@ -63,7 +63,7 @@ impl Gif {
         let mut byt: Vec<u8> = Vec::new();
 
         {
-            let mut encoder = Encoder::new(&mut byt);
+            let mut encoder = GifEncoder::new(&mut byt);
             let vec = get_vec_frame(ts);
             let _ret = encoder.encode_frames(vec).unwrap();
         }
@@ -81,7 +81,7 @@ impl Gif {
     #[staticmethod]
     fn save(path: &str, ts: &PyList) -> PyResult<()> {
         let file_out = File::create(path)?;
-        let mut encoder = Encoder::new(file_out);
+        let mut encoder = GifEncoder::new(file_out);
         let vec = get_vec_frame(ts);
         encoder.encode_frames(vec).unwrap();
         Ok(())

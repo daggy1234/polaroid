@@ -5,3 +5,7 @@ user-test/
 /Cargo.lock
 /poetry.lock
 /pythonenv3.8
+rust-test/
+polaroid.egg-info/
+.vscode/
+.DS_STORE

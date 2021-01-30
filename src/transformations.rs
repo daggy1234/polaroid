@@ -1,10 +1,12 @@
 use crate::image::Image;
 use image::GenericImageView;
+use imageproc::seam_carving::*;
 use photon_rs::helpers;
 use photon_rs::transform;
 use photon_rs::PhotonImage;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
+
 #[pymethods]
 impl Image {
     fn crop(&mut self, x1: u32, y1: u32, x2: u32, y2: u32) -> PyResult<()> {
@@ -41,20 +43,33 @@ impl Image {
     }
     fn rotate90(&mut self) -> PyResult<()> {
         let dyn_image = helpers::dyn_image_from_raw(&self.img);
-        let rotated_image = image::ImageRgba8(image::imageops::rotate90(&dyn_image));
+        let rotated_image = image::DynamicImage::ImageRgba8(image::imageops::rotate90(&dyn_image));
         self.img = PhotonImage::new(
-            rotated_image.raw_pixels(),
+            rotated_image.to_bytes(),
             rotated_image.width(),
             rotated_image.height(),
         );
         Ok(())
     }
 
+    fn liquid_rescale(&mut self, width: u32, height: u32) -> PyResult<()> {
+        let dyn_image = helpers::dyn_image_from_raw(&self.img);
+        let shrunk = dyn_image.to_rgb8();
+        let p_a = shrink_width(&shrunk, width);
+        let rotated = image::imageops::rotate90(&p_a);
+        let h_a = shrink_width(&rotated, height);
+        let out = image::imageops::rotate270(&h_a);
+        let final_img =
+            image::DynamicImage::ImageRgba8(image::DynamicImage::ImageRgb8(out).to_rgba8());
+        self.img = PhotonImage::new(final_img.to_bytes(), final_img.width(), final_img.height());
+        Ok(())
+    }
+
     fn rotate180(&mut self) -> PyResult<()> {
         let dyn_image = helpers::dyn_image_from_raw(&self.img);
-        let rotated_image = image::ImageRgba8(image::imageops::rotate180(&dyn_image));
+        let rotated_image = image::DynamicImage::ImageRgba8(image::imageops::rotate180(&dyn_image));
         self.img = PhotonImage::new(
-            rotated_image.raw_pixels(),
+            rotated_image.to_bytes(),
             rotated_image.width(),
             rotated_image.height(),
         );
@@ -63,9 +78,9 @@ impl Image {
 
     fn rotate270(&mut self) -> PyResult<()> {
         let dyn_image = helpers::dyn_image_from_raw(&self.img);
-        let rotated_image = image::ImageRgba8(image::imageops::rotate270(&dyn_image));
+        let rotated_image = image::DynamicImage::ImageRgba8(image::imageops::rotate270(&dyn_image));
         self.img = PhotonImage::new(
-            rotated_image.raw_pixels(),
+            rotated_image.to_bytes(),
             rotated_image.width(),
             rotated_image.height(),
         );
@@ -74,12 +89,9 @@ impl Image {
 
     fn thumbnail(&mut self, width: u32, height: u32) -> PyResult<()> {
         let dyn_image = helpers::dyn_image_from_raw(&self.img);
-        let thumbnail = image::ImageRgba8(image::imageops::thumbnail(&dyn_image, width, height));
-        self.img = PhotonImage::new(
-            thumbnail.raw_pixels(),
-            thumbnail.width(),
-            thumbnail.height(),
-        );
+        let thumbnail =
+            image::DynamicImage::ImageRgba8(image::imageops::thumbnail(&dyn_image, width, height));
+        self.img = PhotonImage::new(thumbnail.to_bytes(), thumbnail.width(), thumbnail.height());
         Ok(())
     }
 }

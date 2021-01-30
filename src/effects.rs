@@ -1,6 +1,6 @@
 use crate::image::Image;
 use image::imageops;
-use image::{GenericImageView, ImageRgba8};
+use image::{DynamicImage::ImageRgba8, GenericImageView};
 use photon_rs::effects;
 use photon_rs::helpers;
 use photon_rs::PhotonImage;
@@ -68,20 +68,25 @@ impl Image {
     fn unsharpen(&mut self, sigma: f32, treshold: i32) -> PyResult<()> {
         let img = helpers::dyn_image_from_raw(&self.img);
         let invert = ImageRgba8(imageops::unsharpen(&img, sigma, treshold));
-        self.img = PhotonImage::new(invert.raw_pixels(), invert.width(), invert.height());
+        self.img = PhotonImage::new(invert.to_bytes(), invert.width(), invert.height());
         Ok(())
     }
 
     fn brighten(&mut self, treshold: i32) -> PyResult<()> {
         let img = helpers::dyn_image_from_raw(&self.img);
         let invert = ImageRgba8(imageops::brighten(&img, treshold));
-        self.img = PhotonImage::new(invert.raw_pixels(), invert.width(), invert.height());
+        self.img = PhotonImage::new(invert.to_bytes(), invert.width(), invert.height());
         Ok(())
     }
     fn invert(&mut self) -> PyResult<()> {
         let mut img = helpers::dyn_image_from_raw(&self.img);
         imageops::invert(&mut img);
-        self.img = PhotonImage::new(img.raw_pixels(), img.width(), img.height());
+        self.img = PhotonImage::new(img.to_bytes(), img.width(), img.height());
+        Ok(())
+    }
+
+    fn oil(&mut self, radius: i32, intensity: f64) -> PyResult<()> {
+        effects::oil(&mut self.img, radius, intensity);
         Ok(())
     }
 }

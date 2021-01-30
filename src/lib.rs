@@ -1,4 +1,5 @@
 mod channels;
+mod colorize;
 mod conv;
 mod effects;
 mod filters;

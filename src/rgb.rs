@@ -24,6 +24,17 @@ impl Clone for Rgb {
         Rgb { rgb }
     }
 }
+
+impl Rgb {
+    pub fn to_image_rgb(&self) -> image::Rgb<u8> {
+        image::Rgb([
+            self.red().unwrap(),
+            self.blue().unwrap(),
+            self.green().unwrap(),
+        ])
+    }
+}
+
 #[pymethods]
 impl Rgb {
     #[new]

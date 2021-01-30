@@ -1,5 +1,9 @@
 use crate::image::Image;
+use image::GenericImageView;
+use imageproc::hog::*;
 use photon_rs::conv;
+use photon_rs::helpers;
+use photon_rs::PhotonImage;
 use pyo3::prelude::*;
 
 #[pymethods]
@@ -58,6 +62,33 @@ impl Image {
     }
     fn sobel_vertical(&mut self) -> PyResult<()> {
         conv::sobel_vertical(&mut self.img);
+        Ok(())
+    }
+
+    fn hog(
+        &mut self,
+        orientations: usize,
+        cell_size: usize,
+        block_size: usize,
+        block_stride: usize,
+        star_side: u32,
+        signed: bool,
+    ) -> PyResult<()> {
+        let opts = HogOptions {
+            orientations: orientations,
+            signed: signed,
+            cell_side: cell_size,
+            block_side: block_size,
+            block_stride: block_stride,
+        };
+        let dyn_img = helpers::dyn_image_from_raw(&self.img).to_luma8();
+        let (width, height) = dyn_img.dimensions();
+        let spec = HogSpec::from_options(width, height, opts).unwrap();
+        let mut hist = cell_histograms(&dyn_img, spec);
+        let out = render_hist_grid(star_side, &hist.view_mut(), signed);
+        let final_img =
+            image::DynamicImage::ImageRgba8(image::DynamicImage::ImageLuma8(out).to_rgba8());
+        self.img = PhotonImage::new(final_img.to_bytes(), final_img.width(), final_img.height());
         Ok(())
     }
 }

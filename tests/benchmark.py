@@ -12,7 +12,7 @@ def timer(function):
     @functools.wraps(function)
     def wrapper(*args, **kwargs) -> float:
         time_list = []
-        for i in range(0, 10):
+        for i in range(0, 100):
             start = time.perf_counter()
             function(*args, **kwargs)
             end = time.perf_counter()
@@ -124,15 +124,16 @@ def pil_vs_polaroid_io():
 
 
 if __name__ == "__main__":
+    print("All values are in ms and consist of the average of 10 runs")
     print(100 * "=")
-    print("Grayscale Encode and Decode")
+    print("Grayscale Encode and Decode: reading and writing to bytes while coverting image to grayscale")
     print(100 * "=")
     pil_vs_polaroid()
     print(100 * "=")
-    print("Saving Images to File")
+    print("Saving Images to File: using read image bytes and solarizing image and saving to file")
     print(100 * "=")
     pil_vs_polaroid_save()
     print(100 * "=")
-    print("Reading Images from File and returning Bytes")
+    print("Reading Images from File and returning Bytes: Read Image from file resize to 100,100 and saving")
     print(100 * "=")
     pil_vs_polaroid_io()

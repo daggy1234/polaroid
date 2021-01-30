@@ -29,11 +29,7 @@ impl Image {
     pub(crate) fn dup(&self) -> Image {
         let dyn_image = helpers::dyn_image_from_raw(&self.img);
         Image {
-            img: PhotonImage::new(
-                dyn_image.raw_pixels(),
-                dyn_image.width(),
-                dyn_image.height(),
-            ),
+            img: PhotonImage::new(dyn_image.to_bytes(), dyn_image.width(), dyn_image.height()),
         }
     }
 }
@@ -48,14 +44,14 @@ impl Image {
             let (width, height) = img.dimensions();
 
             // Convert the DynamicImage type to raw vec representing RGBA pixels (not RGB)
-            let raw_pixels = img.to_rgba().to_vec();
+            let raw_pixels = img.to_rgba8().to_vec();
 
             let photon_image = PhotonImage::new(raw_pixels, width, height);
             Ok(Image { img: photon_image })
         } else if let Ok(v) = obj.extract::<Vec<u8>>(py) {
             let img = image::load_from_memory(&*v).unwrap();
             let (width, height) = img.dimensions();
-            let raw_pixels = img.to_rgba().to_vec();
+            let raw_pixels = img.to_rgba8().to_vec();
             let photon_image = PhotonImage::new(raw_pixels, width, height);
             Ok(Image { img: photon_image })
         } else {
@@ -70,16 +66,20 @@ impl Image {
             Err(_e) => return Ok("unknown"),
         };
         let string: &str = match res {
-            image::ImageFormat::PNG => "png",
-            image::ImageFormat::JPEG => "jpeg",
-            image::ImageFormat::GIF => "gif",
-            image::ImageFormat::WEBP => "webp",
-            image::ImageFormat::PNM => "pnm",
-            image::ImageFormat::TIFF => "tiff",
-            image::ImageFormat::TGA => "tga",
-            image::ImageFormat::BMP => "bmp",
-            image::ImageFormat::ICO => "ico",
-            image::ImageFormat::HDR => "hdr",
+            image::ImageFormat::Png => "png",
+            image::ImageFormat::Jpeg => "jpeg",
+            image::ImageFormat::Gif => "gif",
+            image::ImageFormat::WebP => "webp",
+            image::ImageFormat::Pnm => "pnm",
+            image::ImageFormat::Tiff => "tiff",
+            image::ImageFormat::Tga => "tga",
+            image::ImageFormat::Dds => "dds",
+            image::ImageFormat::Bmp => "bmp",
+            image::ImageFormat::Ico => "ico",
+            image::ImageFormat::Hdr => "hdr",
+            image::ImageFormat::Farbfeld => "farbfeld",
+            image::ImageFormat::Avif => "avif",
+            _ => "unkown",
         };
 
         Ok(string)
@@ -108,13 +108,17 @@ impl Image {
         let im = helpers::dyn_image_from_raw(&self.img);
         let mode = im.color();
         let str = match mode {
-            image::ColorType::Gray(..) => "GRAY",
-            image::ColorType::RGB(..) => "RGB",
-            image::ColorType::Palette(..) => "PALETTE",
-            image::ColorType::GrayA(..) => "GRAYA",
-            image::ColorType::RGBA(..) => "RGBA",
-            image::ColorType::BGR(..) => "BGR",
-            image::ColorType::BGRA(..) => "BGRA",
+            image::ColorType::L16 => "L16",
+            image::ColorType::L8 => "L8",
+            image::ColorType::La16 => "La16",
+            image::ColorType::La8 => "La8",
+            image::ColorType::Rgb8 => "Rgb8",
+            image::ColorType::Rgb16 => "Rgb16",
+            image::ColorType::Rgba8 => "Rgba8",
+            image::ColorType::Rgba16 => "Rgba16",
+            image::ColorType::Bgr8 => "BGR8",
+            image::ColorType::Bgra8 => "BGRA8",
+            _ => "Unknown",
         };
         Ok(str)
     }
@@ -132,9 +136,9 @@ impl Image {
 
     pub fn save_bytes(&mut self) -> PyResult<&PyBytes> {
         let mut img = helpers::dyn_image_from_raw(&self.img);
-        img = image::ImageRgba8(img.to_rgba());
+        img = image::DynamicImage::ImageRgba8(img.to_rgba8());
         let mut buffer = vec![];
-        match img.write_to(&mut buffer, image::ImageOutputFormat::PNG) {
+        match img.write_to(&mut buffer, image::ImageOutputFormat::Png) {
             Ok(..) => ..,
             Err(e) => panic!("Error: {}", e),
         };
