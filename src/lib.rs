@@ -10,7 +10,6 @@ mod multiple;
 mod noise;
 mod rgb;
 mod transformations;
-
 use pyo3::prelude::*;
 
 #[pymodule]

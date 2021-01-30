@@ -35,7 +35,7 @@ impl Image {
             multiple::blend(&mut self.img, &img.img, mode);
             Ok(())
         } else {
-            Err(PyValueError::new_err("Invalid Blend Mode"))
+            Err(PyValueError::new_err("Invalid Blend Mode Chosen"))
         }
     }
 }

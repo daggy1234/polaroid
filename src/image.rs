@@ -60,7 +60,9 @@ impl Image {
     }
     #[getter]
     fn format(&self) -> PyResult<&str> {
-        let format = image::guess_format(self.img.get_raw_pixels().as_slice());
+        let dyn_img = photon_rs::helpers::dyn_image_from_raw(&self.img);
+        let slic = dyn_img.as_bytes();
+        let format = image::guess_format(slic);
         let res = match format {
             Ok(f) => f,
             Err(_e) => return Ok("unknown"),
@@ -122,23 +124,66 @@ impl Image {
         };
         Ok(str)
     }
+
     pub fn save(&mut self, img_path: &str) -> PyResult<()> {
         let img = &mut self.img;
         let raw_pixels = img.get_raw_pixels();
         let width = img.get_width();
         let height = img.get_height();
-
         let img_buffer = ImageBuffer::from_vec(width, height, raw_pixels).unwrap();
         let dynimage = image::DynamicImage::ImageRgba8(img_buffer);
         dynimage.save(img_path).unwrap();
         Ok(())
     }
 
-    pub fn save_bytes(&mut self) -> PyResult<&PyBytes> {
+    pub fn save_jpeg_bytes(&mut self, quality: u8) -> PyResult<&PyBytes> {
         let mut img = helpers::dyn_image_from_raw(&self.img);
         img = image::DynamicImage::ImageRgba8(img.to_rgba8());
+        let outf = image::ImageOutputFormat::Jpeg(quality);
         let mut buffer = vec![];
-        match img.write_to(&mut buffer, image::ImageOutputFormat::Png) {
+        match img.write_to(&mut buffer, outf) {
+            Ok(..) => ..,
+            Err(e) => panic!("Error: {}", e),
+        };
+        unsafe {
+            Python::with_gil(|_py| -> PyResult<&PyBytes> {
+                let npy = Python::assume_gil_acquired();
+                let buf = buffer.as_slice();
+                Ok(PyBytes::new(npy, buf))
+            })
+        }
+    }
+
+    #[args(py_args = "*", image_format = "\"guess\"")]
+    pub fn save_bytes(&mut self, image_format: &str) -> PyResult<&PyBytes> {
+        let mut img = helpers::dyn_image_from_raw(&self.img);
+        let buf = img.to_bytes();
+        println!("{}", image_format);
+        let outf;
+        if image_format == "guess" {
+            match image::guess_format(buf.as_slice()) {
+                Ok(f) => outf = image::ImageOutputFormat::from(f),
+                Err(_e) => {
+                    outf = image::ImageOutputFormat::Png;
+                }
+            }
+        } else {
+            outf = match image_format {
+                "png" => image::ImageOutputFormat::Png,
+                "jpeg" => {
+                    panic!("Jpeg cannot be saved normally, please use the save_jpeg_bytes option")
+                }
+                "ico" => image::ImageOutputFormat::Ico,
+                "bmp" => image::ImageOutputFormat::Bmp,
+                "tga" => image::ImageOutputFormat::Tga,
+                "farbfeld" => image::ImageOutputFormat::Farbfeld,
+                _ => panic!("No valid Image format provided"),
+            }
+        }
+
+        img = image::DynamicImage::ImageRgba8(img.to_rgba8());
+        let mut buffer = vec![];
+        match img.write_to(&mut buffer, outf) {
             Ok(..) => ..,
             Err(e) => panic!("Error: {}", e),
         };
