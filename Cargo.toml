@@ -11,7 +11,7 @@ description="Hyper Fast and safe image manipulation library for python. Powered 
 pyo3 = { version="0.13.0", features = ["extension-module"] }
 photon-rs={git = "https://github.com/Daggy1234/photon"}
 image="0.23.12"
-imageproc="0.21.0"  
+imageproc="0.22.0"  
 
 [lib]
 name = "polaroid"
