@@ -1,10 +1,10 @@
 use crate::image::Image;
 use image::DynamicImage;
+use image::GenericImageView;
+use photon_rs::helpers::dyn_image_from_raw;
 use photon_rs::monochrome;
 use photon_rs::PhotonImage;
 use pyo3::prelude::*;
-use image::GenericImageView;
-use photon_rs::helpers::dyn_image_from_raw;
 
 #[pymethods]
 impl Image {
@@ -32,11 +32,7 @@ impl Image {
         let img = dyn_image_from_raw(&self.img);
         let rgb = img.to_luma8();
         let final_img = DynamicImage::ImageRgba8(DynamicImage::ImageLuma8(rgb).to_rgba8());
-        self.img = PhotonImage::new(
-            final_img.to_bytes(),
-            final_img.width(),
-            final_img.height(),
-        );
+        self.img = PhotonImage::new(final_img.to_bytes(), final_img.width(), final_img.height());
         Ok(())
     }
     fn grayscale_human_corrected(&mut self) -> PyResult<()> {

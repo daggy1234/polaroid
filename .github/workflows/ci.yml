@@ -28,6 +28,7 @@ jobs:
       - uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features --all-targets -- -A clippy::unnecessary_wraps 
   rustfnt:
     name: Rustfmt
     runs-on: ubuntu-latest
