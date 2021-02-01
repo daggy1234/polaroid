@@ -16,8 +16,19 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: check
-          args: --all-features --benches --bins --examples --tests
-  fmt:
+  clippy_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+            toolchain: nightly
+            components: clippy
+            override: true
+      - uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+  rustfnt:
     name: Rustfmt
     runs-on: ubuntu-latest
     steps:
@@ -26,25 +37,13 @@ jobs:
         with:
           profile: minimal
           toolchain: stable
-          override: true
           components: rustfmt
-      - uses: actions-rs/cargo@v1
+          override: true
+
+      - name: Run cargo fmt
+        uses: actions-rs/cargo@v1
         with:
           command: fmt
           args: --all -- --check
-
-  clippy:
-    name: Clippy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-          components: clippy
-      - uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: --all-features -- -D warnings
+  
+  

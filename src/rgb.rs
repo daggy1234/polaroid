@@ -73,3 +73,63 @@ impl Rgb {
         Ok(())
     }
 }
+
+#[pyclass]
+pub struct Rgba {
+    pub data: [u8; 4],
+}
+
+impl Rgba {
+    pub fn to_image_rgba(&self) -> image::Rgba<u8> {
+        image::Rgba::<u8>::from(self.data)
+    }
+}
+
+#[pymethods]
+impl Rgba {
+    #[new]
+    fn new(_py: Python, red: u8, green: u8, blue: u8, alpha: u8) -> PyResult<Self> {
+        let arr: [u8; 4] = [red, green, blue, alpha];
+        Ok(Rgba { data: arr })
+    }
+
+    #[getter]
+    fn red(&self) -> PyResult<u8> {
+        Ok(self.data[0])
+    }
+
+    #[getter]
+    fn green(&self) -> PyResult<u8> {
+        Ok(self.data[1])
+    }
+
+    #[getter]
+    fn blue(&self) -> PyResult<u8> {
+        Ok(self.data[2])
+    }
+
+    #[getter]
+    fn alpha(&self) -> PyResult<u8> {
+        Ok(self.data[3])
+    }
+
+    fn set_blue(&mut self, blue: u8) -> PyResult<()> {
+        self.data[2] = blue;
+        Ok(())
+    }
+
+    fn set_red(&mut self, red: u8) -> PyResult<()> {
+        self.data[0] = red;
+        Ok(())
+    }
+
+    fn set_green(&mut self, green: u8) -> PyResult<()> {
+        self.data[1] = green;
+        Ok(())
+    }
+
+    fn set_alpha(&mut self, alpha: u8) -> PyResult<()> {
+        self.data[3] = alpha;
+        Ok(())
+    }
+}

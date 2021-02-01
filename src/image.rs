@@ -214,4 +214,15 @@ impl pyo3::class::basic::PyObjectProtocol for Image {
             height, width, format, mode
         ))
     }
+
+    fn __str__(&self) -> PyResult<String> {
+        let height = &self.height().unwrap();
+        let width = &self.width().unwrap();
+        let format = &self.format().unwrap();
+        let mode = &self.mode().unwrap();
+        Ok(format!(
+            "<polaroid.Image height={} width={} format='{}' mode='{}'>",
+            height, width, format, mode
+        ))
+    }
 }
