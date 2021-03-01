@@ -87,7 +87,7 @@ impl Rgba {
 
 impl Clone for Rgba {
     fn clone(&self) -> Self {
-        let arr = self.data.clone();
+        let arr = self.data;
         Rgba { data: arr }
     }
 }
