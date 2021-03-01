@@ -1,9 +1,10 @@
 mod channels;
 mod colorize;
 mod conv;
-mod drawing;
+// mod drawing;
 mod effects;
 mod filters;
+//mod font;
 mod gif;
 mod image;
 mod monochrome;

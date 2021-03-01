@@ -85,6 +85,13 @@ impl Rgba {
     }
 }
 
+impl Clone for Rgba {
+    fn clone(&self) -> Self {
+        let arr = self.data.clone();
+        Rgba { data: arr }
+    }
+}
+
 #[pymethods]
 impl Rgba {
     #[new]
