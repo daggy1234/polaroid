@@ -8,13 +8,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, windows-2019, macos-10.15]
-        vers: [auto64]
         include:
-          - vers: [i686, aarch64, ppc64le, s390x]
+          - vers: i686
             os: ubuntu-20.04
-          - vers: [universal2, arm64]
+          - vers: aarch64
+            os: ubuntu-20.04
+          - vers: auto64
+            os: ubuntu-20.04
+          - vers: ppc64le
+            os: ubuntu-20.04
+          - vers: arm64
             os: macos-10.15
+          - vers: universal2
+            os: macos-10.15
+          - vers: auto64
+            os: macos-10.15
+          - vers: auto64
+            os: windows-2019
+
     env:
       SCCACHE_VERSION: 0.2.13
       CIBW_BEFORE_ALL_LINUX: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y && yum install -y openssl-devel"
