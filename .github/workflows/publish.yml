@@ -7,14 +7,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        fail-fast: false
         os: [ubuntu-20.04, windows-2019, macos-10.15]
+        vers: [auto64]
         include:
-          - vers: [auto, aarch64, ppc64le, s390x]
+          - vers: [i686, aarch64, ppc64le, s390x]
             os: ubuntu-20.04
-          - vers: [x86_64, universal2]
+          - vers: [universal2, arm64]
             os: macos-10.15
-          - vers: [auto]
-            os: windows-2019
     env:
       SCCACHE_VERSION: 0.2.13
       CIBW_BEFORE_ALL_LINUX: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y && yum install -y openssl-devel"
@@ -55,6 +55,8 @@ jobs:
       - name: Build wheels Windows
         if: runner.os == 'Windows'
         uses: joerick/cibuildwheel@v1.10.0
+        env:
+          CIBW_ARCHS_WINDOWS: ${{ matrix.vers }}
 
       - uses: actions/upload-artifact@v2
         with:
