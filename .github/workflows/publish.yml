@@ -13,12 +13,12 @@ jobs:
         include:
           - vers: i686
             os: ubuntu-20.04
-          - vers: aarch64
-            os: ubuntu-20.04
+          # - vers: aarch64
+          #   os: ubuntu-20.04
           - vers: auto64
             os: ubuntu-20.04
-          - vers: ppc64le
-            os: ubuntu-20.04
+          # - vers: ppc64le
+          #   os: ubuntu-20.04
           - vers: arm64
             os: macos-10.15
           - vers: universal2
@@ -113,7 +113,8 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
-          body_path: CHANGELOG.md
+          body: |
+            Read CHANGELOG.md for viewing changes
           prerelease: false
 
       - uses: actions/download-artifact@v2
@@ -128,8 +129,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: dist/*
-          asset_name: Wheels
+          asset_path: dist
+          asset_name: Zip
           asset_content_type: application/zip
 
       - uses: pypa/gh-action-pypi-publish@master
