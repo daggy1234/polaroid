@@ -11,22 +11,22 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - vers: i686
-            os: ubuntu-20.04
+          #   - vers: i686
+          #     os: ubuntu-20.04
           # - vers: aarch64
           #   os: ubuntu-20.04
-          - vers: auto64
-            os: ubuntu-20.04
+          # - vers: auto64
+          #   os: ubuntu-20.04
           # - vers: ppc64le
           #   os: ubuntu-20.04
           - vers: arm64
             os: macos-10.15
-          - vers: universal2
-            os: macos-10.15
-          - vers: auto64
-            os: macos-10.15
-          - vers: auto64
-            os: windows-2019
+          # - vers: universal2
+          #   os: macos-10.15
+          # - vers: auto64
+          #   os: macos-10.15
+          # - vers: auto64
+          #   os: windows-2019
 
     env:
       SCCACHE_VERSION: 0.2.13
@@ -104,32 +104,21 @@ jobs:
     needs: [build_wheels, build_sdist]
     runs-on: ubuntu-latest
     steps:
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          body: |
-            Read CHANGELOG.md for viewing changes
-          prerelease: false
-
       - uses: actions/download-artifact@v2
         with:
           name: artifact
           path: dist
 
-      - uses: Shopify/upload-to-release@v1
-        name: Upload Files
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: wheels
-          path: dist
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: pypa/gh-action-pypi-publish@master
-        with:
-          user: __token__
-          password: ${{ secrets.pypi_password }}
+          body: |
+            view the CHANGELOG.md for full changes
+          files: |
+            dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: pypa/gh-action-pypi-publish@master
+      #   with:
+      #     user: __token__
+      #     password: ${{ secrets.pypi_password }}
