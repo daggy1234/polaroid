@@ -22,13 +22,13 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
-            toolchain: nightly
-            components: clippy
-            override: true
+          toolchain: nightly
+          components: clippy
+          override: true
       - uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features --all-targets -- -A clippy::unnecessary_wraps 
+          args: --all-features --all-targets -- -A clippy::unnecessary_wraps
   rustfnt:
     name: Rustfmt
     runs-on: ubuntu-latest
@@ -46,5 +46,3 @@ jobs:
         with:
           command: fmt
           args: --all -- --check
-  
-  

@@ -1,5 +1,5 @@
 name: CI
-on: [push, pull_request]
+on: push
 
 jobs:
   build_wheels:
@@ -51,19 +51,19 @@ jobs:
         with:
           platforms: all
 
-      - name: Build wheels Linux
+      - name: Build wheels Linux ${{ matrix.vers }}
         if: runner.os == 'Linux'
         uses: joerick/cibuildwheel@v1.10.0
         env:
           CIBW_ARCHS_LINUX: ${{ matrix.vers }}
 
-      - name: Build wheels Macos
+      - name: Build wheels Macos ${{ matrix.vers }}
         if: runner.os == 'Macos'
         uses: joerick/cibuildwheel@v1.10.0
         env:
           CIBW_ARCHS_MACOS: ${{ matrix.vers }}
 
-      - name: Build wheels Windows
+      - name: Build wheels Windows ${{ matrix.vers }}
         if: runner.os == 'Windows'
         uses: joerick/cibuildwheel@v1.10.0
         env:
@@ -79,14 +79,44 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install rust
+        uses: actions-rs/toolchain@v1
+
       - uses: actions/setup-python@v2
         name: Install Python
         with:
           python-version: "3.8"
 
       - name: Build sdist
-        run: python setup.py sdist
+        run: |
+          python -m pip install setuptools-rust setuptools wheel
+          python setup.py sdist
 
       - uses: actions/upload-artifact@v2
         with:
           path: dist/*.tar.gz
+  # release:
+  #   needs: [build_wheels, build_sdist]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Create Release
+  #       id: create_release
+  #       uses: actions/create-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+  #       with:
+  #         tag_name: ${{ github.ref }}
+  #         release_name: Release ${{ github.ref }}
+  #         body: |
+  #           Changes in this Release
+  #            - Read the CHANGELOG.md
+  #         draft: false
+  #         prerelease: false
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: artifact
+  #         path: dist
+  #     - uses: pypa/gh-action-pypi-publish@master
+  #       with:
+  #         user: __token__
+  #         password: ${{ secrets.pypi_password }}

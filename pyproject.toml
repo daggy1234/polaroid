@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "polaroid"
-version = "0.2.10"
+version = "0.2.11"
 description = "Hyper Fast and safe image manipulation for python. Powered by rust."
 license="MIT"
 authors = ["Arnav Jindal <60603110+Daggy1234@users.noreply.github.com>"]
