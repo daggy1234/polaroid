@@ -13,12 +13,10 @@ jobs:
         include:
           - vers: i686
             os: ubuntu-20.04
-          # - vers: aarch64
-          #   os: ubuntu-20.04
+          - vers: aarch64
+            os: ubuntu-20.04
           - vers: auto64
             os: ubuntu-20.04
-          # - vers: ppc64le
-          #   os: ubuntu-20.04
           - vers: arm64
             os: macos-10.15
           - vers: universal2
@@ -27,13 +25,15 @@ jobs:
             os: macos-10.15
           - vers: auto64
             os: windows-2019
+          - vers: auto32
+            os: windows-2019
 
     env:
       SCCACHE_VERSION: 0.2.13
       CIBW_BEFORE_ALL_LINUX: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y && yum install -y openssl-devel"
       CIBW_BUILD_VERBOSITY: "1" # Make some more noise so that travis doesn't stall
       CIBW_ENVIRONMENT: 'PATH="$PATH:$HOME/.cargo/bin"'
-      CIBW_SKIP: "cp27-* cp34-* cp35-* pp*  *-win32"
+      CIBW_SKIP: "cp27-* cp34-* cp35-* pp*"
 
     steps:
       - uses: actions/checkout@v2
@@ -53,19 +53,19 @@ jobs:
         with:
           platforms: all
 
-      - name: Build wheels Linux ${{ matrix.vers }}
+      - name: wheels Linux ${{ matrix.vers }}
         if: runner.os == 'Linux'
         uses: joerick/cibuildwheel@v1.10.0
         env:
           CIBW_ARCHS_LINUX: ${{ matrix.vers }}
 
-      - name: Build wheels Macos ${{ matrix.vers }}
+      - name: wheels Macos ${{ matrix.vers }}
         if: runner.os == 'Macos'
         uses: joerick/cibuildwheel@v1.10.0
         env:
           CIBW_ARCHS_MACOS: ${{ matrix.vers }}
 
-      - name: Build wheels Windows ${{ matrix.vers }}
+      - name: wheels Windows ${{ matrix.vers }}
         if: runner.os == 'Windows'
         uses: joerick/cibuildwheel@v1.10.0
         env:
