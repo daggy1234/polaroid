@@ -158,7 +158,6 @@ impl Image {
     pub fn save_bytes(&mut self, image_format: &str) -> PyResult<&PyBytes> {
         let mut img = helpers::dyn_image_from_raw(&self.img);
         let buf = img.to_bytes();
-        println!("{}", image_format);
         let outf;
         if image_format == "guess" {
             match image::guess_format(buf.as_slice()) {
