@@ -12,7 +12,7 @@ impl Image {
     /// Adjust the contrast of an image by a factor.
     ///
     /// Example
-    /// 
+    ///
     ///     ```no_run
     ///     img.colorize()
     ///     ```
@@ -53,7 +53,7 @@ impl Image {
     ///     :linenos:
     ///     img.vertical_strips(8)
     ///
-    #[text_signature = "(num: int)"]  
+    #[text_signature = "(num: int)"]
     fn vertical_strips(&mut self, num: u8) -> PyResult<()> {
         effects::vertical_strips(&mut self.img, num);
         Ok(())

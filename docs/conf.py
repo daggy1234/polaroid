@@ -60,6 +60,7 @@ def setup(app):
 
 # -- General configuration ---------------------------------------------------
 
+
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
@@ -135,4 +136,3 @@ intersphinx_mapping = {
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
-

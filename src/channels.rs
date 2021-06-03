@@ -5,7 +5,6 @@ use pyo3::prelude::*;
 
 #[pymethods]
 impl Image {
-
     /// Alter a select channel by incrementing or decrementing its value by a constant.
     ///
     /// # Arguments
@@ -81,5 +80,4 @@ impl Image {
         channels::invert(&mut self.img);
         Ok(())
     }
-
 }

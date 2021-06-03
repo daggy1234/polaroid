@@ -17,7 +17,7 @@ impl Image {
     ///     :linenos:
     ///     img.filter("ryo")
     ///
-    #[text_signature = "(filter)"]  
+    #[text_signature = "(filter)"]
     #[allow(clippy::unit_arg)]
     fn filter(&mut self, filter: &str) -> PyResult<()> {
         let im = &mut self.img;
