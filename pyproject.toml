@@ -1,13 +1,34 @@
 [tool.poetry]
 name = "polaroid"
-version = "0.3.2"
+version = "0.3.3"
 description = "Hyper Fast and safe image manipulation for python. Powered by rust."
 license="MIT"
+readme="README.md"
+documentation="https://polaroid.rtfd.io"
+homepage="https://github.com/Daggy1234/polaroid"
 authors = ["Arnav Jindal <60603110+Daggy1234@users.noreply.github.com>"]
+classifiers=[
+          "Intended Audience :: Developers",
+          'License :: OSI Approved :: MIT License',
+          'Development Status :: 3 - Alpha',
+          'Intended Audience :: Developers',
+          'Programming Language :: Python',
+          'Programming Language :: Rust',
+          "Operating System :: OS Independent",
+          'Natural Language :: English',
+          "Programming Language :: Python :: 3.6",
+          "Programming Language :: Python :: 3.7",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          'Topic :: Internet',
+          'Topic :: Software Development :: Libraries',
+          'Topic :: Software Development :: Libraries :: Python Modules',
+          'Topic :: Utilities'
+]
+
 
 [tool.poetry.dependencies]
-python = "^3.6"
-Sphinx = "^3.4.3"
+python = "^3.8"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -16,6 +37,14 @@ setuptools-rust = "^0.11.3"
 Pillow = "^8.0.1"
 Wand = "^0.6.3"
 autopep8 = "^1.5.4"
+maturin = "^0.10.4"
+matplotlib = "^3.4.2"
+Sphinx = "^4.0.2"
+recommonmark = "^0.7.1"
+nbsphinx = "^0.8.6"
+semantic-version = "^2.8.5"
+setuptools = "^57.0.0"
+wheel = "^0.36.2"
 
 [build-system]
 requires = ["setuptools", "wheel", "setuptools-rust"]

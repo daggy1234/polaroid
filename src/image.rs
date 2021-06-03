@@ -6,6 +6,7 @@ use pyo3::prelude::*;
 use pyo3::types::PyBytes;
 use pyo3::Python;
 
+/// Image class
 #[pyclass]
 pub struct Image {
     pub img: PhotonImage,
@@ -40,7 +41,7 @@ impl Image {
     fn new(py: Python, obj: PyObject) -> PyResult<Self> {
         if let Ok(img_path) = obj.extract::<String>(py) {
             let img = image::open(&img_path).unwrap();
-
+            print!("e");
             let (width, height) = img.dimensions();
 
             // Convert the DynamicImage type to raw vec representing RGBA pixels (not RGB)
@@ -141,6 +142,7 @@ impl Image {
         img = image::DynamicImage::ImageRgba8(img.to_rgba8());
         let outf = image::ImageOutputFormat::Jpeg(quality);
         let mut buffer = vec![];
+        
         match img.write_to(&mut buffer, outf) {
             Ok(..) => ..,
             Err(e) => panic!("Error: {}", e),

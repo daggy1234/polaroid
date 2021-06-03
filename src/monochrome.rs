@@ -28,13 +28,19 @@ impl Image {
         monochrome::g_grayscale(&mut self.img);
         Ok(())
     }
-    fn grayscale(&mut self) -> PyResult<()> {
+    fn grayscale_img_luma(&mut self) -> PyResult<()> {
         let img = dyn_image_from_raw(&self.img);
         let rgb = img.to_luma8();
         let final_img = DynamicImage::ImageRgba8(DynamicImage::ImageLuma8(rgb).to_rgba8());
         self.img = PhotonImage::new(final_img.to_bytes(), final_img.width(), final_img.height());
         Ok(())
     }
+
+    fn grayscale(&mut self) -> PyResult<()> {
+        monochrome::grayscale(&mut self.img);
+        Ok(())
+    }
+
     fn grayscale_human_corrected(&mut self) -> PyResult<()> {
         monochrome::grayscale_human_corrected(&mut self.img);
         Ok(())

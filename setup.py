@@ -1,6 +1,6 @@
 import re
 from setuptools import setup
-from setuptools_rust import Binding, RustExtension
+from setuptools_rust import Binding, RustExtension, Strip
 
 
 with open('polaroid/__init__.py') as f:
@@ -41,7 +41,7 @@ setup(name='polaroid',
           'Topic :: Utilities'
       ],
       rust_extensions=[
-          RustExtension('polaroid.polaroid', 'Cargo.toml', binding=Binding.PyO3)],
+          RustExtension('polaroid.polaroid', 'Cargo.toml', binding=Binding.PyO3, strip=Strip.Debug)],
       setup_requires=setup_requires,
       include_package_data=True,
       packages=['polaroid'],

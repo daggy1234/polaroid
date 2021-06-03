@@ -10,7 +10,7 @@ Hyper Fast and safe image manipulation library for python . Powered by rust.
 from .polaroid import Image, Rgb, Gif, Rgba
 from collections import namedtuple
 
-__version__ = '0.3.2'
+__version__ = '0.3.3'
 __author__ = "Daggy1234"
 __license__ = "MIT"
 __copyright__ = "Copyright 2021 Daggy1234"

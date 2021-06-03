@@ -4,6 +4,20 @@ use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 #[pymethods]
 impl Image {
+    /// Apply a cool filter to an image
+    ///
+    /// Parameters
+    /// ----------
+    /// filter: :class:`str`
+    ///     filter to be applied
+    ///
+    /// Example
+    /// -------
+    /// .. code-block:: python3
+    ///     :linenos:
+    ///     img.filter("ryo")
+    ///
+    #[text_signature = "(filter)"]  
     #[allow(clippy::unit_arg)]
     fn filter(&mut self, filter: &str) -> PyResult<()> {
         let im = &mut self.img;

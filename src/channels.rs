@@ -5,6 +5,19 @@ use pyo3::prelude::*;
 
 #[pymethods]
 impl Image {
+
+    /// Alter a select channel by incrementing or decrementing its value by a constant.
+    ///
+    /// # Arguments
+    ///
+    /// * `index` - index of channel to increment. 0 for R, 1 for G and 2 for B.
+    /// * `amount` - The amount to increment/decrement the channel’s value by for that pixel. A positive value will increment/decrement the channel’s value, a negative value will decrement the channel’s value.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// img.alter_channel(0, 10)
+    /// ```
     fn alter_channel(&mut self, index: usize, amt: i16) -> PyResult<()> {
         channels::alter_channel(&mut self.img, index, amt);
         Ok(())
@@ -63,4 +76,10 @@ impl Image {
         channels::swap_channels(&mut self.img, channel1, channel2);
         Ok(())
     }
+
+    fn channel_invert(&mut self) -> PyResult<()> {
+        channels::invert(&mut self.img);
+        Ok(())
+    }
+
 }

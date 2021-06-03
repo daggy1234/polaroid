@@ -85,3 +85,19 @@ im.save_jpeg(quaility: int)
 
 byt = im.save_jpeg_bytes(quality: int)
 ```
+
+## Checklist
+
+* [x] initial release
+
+* [x] automated releases and pypi wheels
+
+* [x] wheels for alpine linux
+
+* [ ] full documentation
+
+* [ ] benchmarks
+
+* [ ] image draw features
+
+* [ ] Stable release and promotion

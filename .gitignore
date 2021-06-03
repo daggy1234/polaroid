@@ -9,3 +9,6 @@ rust-test/
 polaroid.egg-info/
 .vscode/
 .DS_STORE
+docs/_build/**/*
+
+__pycache__
