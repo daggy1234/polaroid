@@ -85,6 +85,8 @@ source_suffix = [".rst", ".md"]
 
 master_doc = "index"
 
+pygments_style = "emacs"
+
 default_role = "py:obj"
 
 # List of patterns, relative to source directory, that match files and
@@ -99,6 +101,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 html_theme = 'sphinx_book_theme'
+html_title = "polaroid"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -136,3 +139,10 @@ intersphinx_mapping = {
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+
+html_theme_options = {
+    "toc_title": "Polaroid",
+    "repository_url": "https://github.com/daggy1234/polaroid",
+    "use_issues_button": True,
+}

@@ -346,8 +346,8 @@ impl Image {
 
     /// Vertical strips. Divide an image into a series of equal-width strips, for an artistic effect. Specify a color as well
     ///
-    /// # Arguments
-    ///
+    /// Parameters
+    /// ----------
     /// num: :class:`int`
     ///     the number of strips
     /// rgb: :class:`Rgb`
@@ -370,8 +370,8 @@ impl Image {
 
     /// Horizontal strips. Divide an image into a series of equal-height strips, for an artistic effect. Specify a color as well
     ///
-    /// # Arguments
-    ///
+    /// Parameters
+    /// ----------
     /// num: :class:`int
     ///     the number of strips
     /// rgb: :class:`Rgb`
