@@ -142,7 +142,7 @@ impl Image {
         img = image::DynamicImage::ImageRgba8(img.to_rgba8());
         let outf = image::ImageOutputFormat::Jpeg(quality);
         let mut buffer = vec![];
-        
+
         match img.write_to(&mut buffer, outf) {
             Ok(..) => ..,
             Err(e) => panic!("Error: {}", e),
