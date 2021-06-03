@@ -33,6 +33,21 @@ pub fn color_gradient(gray: Luma<u8>, low: Rgb<u8>, mid: Rgb<u8>, high: Rgb<u8>)
 
 #[pymethods]
 impl Image {
+    /// SIngle color pixel filter. Grayscales first
+    ///
+    /// Parameters
+    /// ----------
+    /// rgb: :class:`Rgb`
+    ///     the rgb color to use to color
+    ///
+    /// Examples
+    /// --------
+    /// green colorize
+    /// .. code-block:: python3
+    ///     from photon import Rgb
+    ///     rgb = Rgb(0, 255, 0)
+    ///     img.color(rgb)
+    ///
     fn color(&mut self, rgb: PyObject) -> PyResult<()> {
         let rgb = extract_rgb(rgb);
         let irgb = Rgb([rgb.rgb.get_red(), rgb.rgb.get_green(), rgb.rgb.get_blue()]);
@@ -43,6 +58,28 @@ impl Image {
         Ok(())
     }
 
+    /// Adds pixels with the given weights(RGB values). Like a gradiented color filter.
+    ///
+    /// Parameters
+    /// ----------
+    /// low: :class:`Rgb`
+    ///     lowest rgb value
+    /// medium: :class:`Rgb`
+    ///     medium rgb value
+    /// high: :class:`Rgb`
+    ///     high rgb value
+    ///
+    /// Examples
+    /// --------
+    ///
+    /// .. code-block:: python3
+    ///     
+    ///     from photon import Rgb
+    ///     r = Rgb(255, 0, 0)
+    ///     g = Rgb(0, 255, 0)
+    ///     b = Rgb(0, 0, 255)
+    ///     img.gradient(r, g, b)
+    ///
     fn gradient(&mut self, low: PyObject, medium: PyObject, high: PyObject) -> PyResult<()> {
         let low = extract_rgb(low).to_image_rgb();
         let med = extract_rgb(medium).to_image_rgb();
@@ -54,6 +91,21 @@ impl Image {
         Ok(())
     }
 
+    /// Color tinting. But no grayscale
+    ///
+    /// Parameters
+    /// ----------
+    /// rgb: :class:`Rgb`
+    ///     the rgb color to use to color
+    ///
+    /// Examples
+    /// --------
+    /// purple tint
+    /// .. code-block:: python3
+    ///     from photon import Rgb
+    ///     rgb = Rgb(255, 0, 255)
+    ///     img.color(rgb)
+    ///
     fn color_no_grayscale(&mut self, rgb: PyObject) -> PyResult<()> {
         let rgb = extract_rgb(rgb);
         let irgb = Rgb([rgb.rgb.get_red(), rgb.rgb.get_green(), rgb.rgb.get_blue()]);

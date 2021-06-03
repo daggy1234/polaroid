@@ -6,6 +6,32 @@ use pyo3::prelude::*;
 impl Image {
     /// Apply a cool filter to an image
     ///
+    /// Chose From list of available filters:
+    ///     - cali
+    ///     - dramatic
+    ///     - firenze
+    ///     - golden
+    ///     - lix
+    ///     - lofi
+    ///     - neue
+    ///     - obsidian
+    ///     - pastel_pink
+    ///     - ryo
+    ///     - oceanic
+    ///     - marine
+    ///     - seagreen
+    ///     - flagblue
+    ///     - liquid
+    ///     - diamante
+    ///     - radio
+    ///     - twenties
+    ///     - rosetint
+    ///     - mauve
+    ///     - bluechrome
+    ///     - vintage
+    ///     - prefume
+    ///     - serenity
+    ///
     /// Parameters
     /// ----------
     /// filter: :class:`str`
@@ -13,8 +39,9 @@ impl Image {
     ///
     /// Example
     /// -------
+    ///
     /// .. code-block:: python3
-    ///     :linenos:
+    ///
     ///     img.filter("ryo")
     ///
     #[text_signature = "(filter)"]
