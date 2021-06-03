@@ -39,12 +39,13 @@ Wand = "^0.6.3"
 autopep8 = "^1.5.4"
 maturin = "^0.10.4"
 matplotlib = "^3.4.2"
-Sphinx = "^4.0.2"
+Sphinx = "^3.5.4"
 recommonmark = "^0.7.1"
 nbsphinx = "^0.8.6"
 semantic-version = "^2.8.5"
 setuptools = "^57.0.0"
 wheel = "^0.36.2"
+sphinx-book-theme = "^0.1.0"
 
 [build-system]
 requires = ["setuptools", "wheel", "setuptools-rust"]
