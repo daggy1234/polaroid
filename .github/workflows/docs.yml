@@ -32,7 +32,8 @@ jobs:
       - name: Docs 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: |
           poetry run python setup.py install
-          cd docs && poetry run make html && ls
+          cd docs && poetry run make html
+          cd docs/_build/html && ls
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1

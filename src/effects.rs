@@ -28,10 +28,12 @@ impl Image {
     /// num: :class:`int`
     ///     the number of strips
     ///
-    /// Example
-    /// -------
+    /// Examples
+    /// --------
+    ///
     /// .. code-block:: python3
     ///     :linenos:
+    ///
     ///     img.horizontal_strips(8)
     ///  
     #[text_signature = "(num: int)"]
@@ -49,8 +51,9 @@ impl Image {
     ///
     /// Example
     /// -------
+    ///
     /// .. code-block:: python3
-    ///     :linenos:
+    ///
     ///     img.vertical_strips(8)
     ///
     #[text_signature = "(num: int)"]
