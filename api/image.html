@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Image &#8212; polaroid 0.3.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Rgb" href="rgb.html" />
+    <link rel="prev" title="Library Reference" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-polaroid">
+<span id="image"></span><h1>Image<a class="headerlink" href="#module-polaroid" title="Permalink to this headline">¶</a></h1>
+<section id="polaroid">
+<h2>Polaroid<a class="headerlink" href="#polaroid" title="Permalink to this headline">¶</a></h2>
+<p>Hyper Fast and safe image manipulation library for python . Powered by rust.
+:copyright: (c) 2020 Daggy
+:license: MIT, see LICENSE for more details.</p>
+</section>
+<section id="id1">
+<h2><code class="docutils literal notranslate"><span class="pre">Image</span></code><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="polaroid.Image">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">polaroid.</span></span><span class="sig-name descname"><span class="pre">Image</span></span><a class="headerlink" href="#polaroid.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Image class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.__new__">
+<span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a new object.  See help(type) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.adjust_contrast">
+<span class="sig-name descname"><span class="pre">adjust_contrast</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.adjust_contrast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjust the contrast of an image by a factor.</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">num</span></code> - factor to adjust contrast by</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.adjust_contrast(30)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.alter_channel">
+<span class="sig-name descname"><span class="pre">alter_channel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.alter_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alter a select channel by incrementing or decrementing its value by a constant.</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code> - index of channel to increment. 0 for R, 1 for G and 2 for B.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">amount</span></code> - The amount to increment/decrement the channel’s value by for that pixel. A positive value will increment/decrement the channel’s value, a negative value will decrement the channel’s value.</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.alter_channel(0,</span> <span class="pre">10)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.brighten">
+<span class="sig-name descname"><span class="pre">brighten</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.brighten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Brighten the supplied imag</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">treshold</span></code> - is the amount to brighten each pixel by. Negative values decrease the brightness and positive values increase it.</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.brighten(0,</span> <span class="pre">200)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.colorize">
+<span class="sig-name descname"><span class="pre">colorize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.colorize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjust the contrast of an image by a factor.</p>
+<p>Example</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.colorize()</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a cool filter to an image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – filter to be applied</p>
+</dd>
+</dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.frosted_glass">
+<span class="sig-name descname"><span class="pre">frosted_glass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.frosted_glass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn an image into an frosted glass see through</p>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.frosted_glass()</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.halftone">
+<span class="sig-name descname"><span class="pre">halftone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.halftone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Halftoning effect</p>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.halftone()</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.horizontal_strips">
+<span class="sig-name descname"><span class="pre">horizontal_strips</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.horizontal_strips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Horizontal strips. Divide an image into a series of equal-height strips, for an artistic effect.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the number of strips</p>
+</dd>
+</dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.horizontal_strips_coloured">
+<span class="sig-name descname"><span class="pre">horizontal_strips_coloured</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.horizontal_strips_coloured" title="Permalink to this definition">¶</a></dt>
+<dd><p>Horizontal strips. Divide an image into a series of equal-height strips, for an artistic effect. Specify a color as well</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">num</span></code> - the number of strips</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rgb</span></code> - the rgb color</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">from</span> <span class="pre">photon</span> <span class="pre">import</span> <span class="pre">Rgb</span>
+<span class="pre">blue</span> <span class="pre">=</span> <span class="pre">Rgb(0,</span> <span class="pre">0</span> <span class="pre">,</span> <span class="pre">255)</span>
+<span class="pre">img.horizontal_strips_coloured(blue)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.inc_brightness">
+<span class="sig-name descname"><span class="pre">inc_brightness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.inc_brightness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increase the brightness of an image by a factor. Different algoritihim</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">brightness</span></code> - A u8 to add to the brightness.</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.inc_brightness(10)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.invert">
+<span class="sig-name descname"><span class="pre">invert</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.invert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invert each pixel within the supplied image</p>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.invert()</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.offset">
+<span class="sig-name descname"><span class="pre">offset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an offset to the image by a certain number of pixels. This creates an RGB shift effect.</p>
+<p>Arguments:</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">channel_index</span></code> - index of channel to increment. 0 for R, 1 for G and 2 for B.</p></li>
+<li><p><a class="reference internal" href="#polaroid.Image.offset" title="polaroid.Image.offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset</span></code></a> - offset added to pixels in the image.</p></li>
+</ul>
+<p>Example:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.offset(0,</span> <span class="pre">30)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.offset_blue">
+<span class="sig-name descname"><span class="pre">offset_blue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.offset_blue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an offset to the blue channel by a certain number of pixels.</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#polaroid.Image.offset" title="polaroid.Image.offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset</span></code></a> - offset added to pixels in the image.</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.offset_blue(0,</span> <span class="pre">30)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.offset_green">
+<span class="sig-name descname"><span class="pre">offset_green</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.offset_green" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an offset to the green channel by a certain number of pixels.</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#polaroid.Image.offset" title="polaroid.Image.offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset</span></code></a> - offset added to pixels in the image.</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.offset_green(30)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.offset_red">
+<span class="sig-name descname"><span class="pre">offset_red</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.offset_red" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an offset to the red channel by a certain number of pixels.</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#polaroid.Image.offset" title="polaroid.Image.offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset</span></code></a> - offset added to pixels in the image.</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.offset_red(30)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.oil">
+<span class="sig-name descname"><span class="pre">oil</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.oil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn an image into an oil painting</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">radius</span></code> - Radius of each paint particle.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">intensity</span></code> - How artsy an Image should be</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.oil(4,</span> <span class="pre">55.0)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.primary">
+<span class="sig-name descname"><span class="pre">primary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.primary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reduces an image to the primary colours.</p>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.primary()</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.solarize">
+<span class="sig-name descname"><span class="pre">solarize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.solarize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a solarizing effect to an image.</p>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.solarize()</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.tint">
+<span class="sig-name descname"><span class="pre">tint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.tint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tint an image by adding an offset to averaged RGB channel values.</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">red_offset</span></code> - factor to increment r channel by</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">green_offset</span></code> - factor to increment g channel by</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">blue_offset</span></code> - factor to increment b channel by</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.tint(10,</span> <span class="pre">20,</span> <span class="pre">15)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.unsharpen">
+<span class="sig-name descname"><span class="pre">unsharpen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.unsharpen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an offset to the image by a certain number of pixels. This creates an RGB shift effect.</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigma</span></code> - is the amount to blur the image by.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">treshold</span></code> - treshold for the minimal brightness change that will be sharpened</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">img.unsharpen(8,</span> <span class="pre">200)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.vertical_strips">
+<span class="sig-name descname"><span class="pre">vertical_strips</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.vertical_strips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vertical strips. Divide an image into a series of equal-width strips, for an artistic effect.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the number of strips</p>
+</dd>
+</dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polaroid.Image.vertical_strips_coloured">
+<span class="sig-name descname"><span class="pre">vertical_strips_coloured</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.vertical_strips_coloured" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vertical strips. Divide an image into a series of equal-width strips, for an artistic effect. Specify a color as well</p>
+<p># Arguments</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">num</span></code> - the number of strips</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rgb</span></code> - the rgb color</p></li>
+</ul>
+<p># Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
+<span class="pre">from</span> <span class="pre">photon</span> <span class="pre">import</span> <span class="pre">Rgb</span>
+<span class="pre">red</span> <span class="pre">=</span> <span class="pre">Rgb(255,</span> <span class="pre">0</span> <span class="pre">,</span> <span class="pre">0)</span>
+<span class="pre">img.vertical_strips_coloured(red)</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">polaroid</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Library Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgb.html">Rgb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgba.html">Rgba</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Library Reference</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Library Reference</a></li>
+      <li>Next: <a href="rgb.html" title="next chapter">Rgb</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Daggy1234.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/image.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
