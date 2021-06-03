@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image &#8212; polaroid 0.3.3 documentation</title>
+    <title>Image &#8212; polaroid</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -56,7 +56,7 @@
     <a class="navbar-brand text-wrap" href="../index.html">
       
       
-      <h1 class="site-logo" id="site-title">polaroid 0.3.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">polaroid</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -154,6 +154,19 @@
 
             <!-- Source interaction buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        
+        <a class="issues-button"
+            href="https://github.com/daggy1234/polaroid/issues/new?title=Issue%20on%20page%20%2Fapi/image.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
             <!-- Full screen (wrap in <a> to have style consistency -->
 
 <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
@@ -169,7 +182,7 @@
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
             <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+                <i class="fas fa-list"></i> Polaroid
             </div>
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
@@ -251,15 +264,17 @@
 <dt id="polaroid.Image.alter_channel">
 <code class="sig-name descname"><span class="pre">alter_channel</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.alter_channel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alter a select channel by incrementing or decrementing its value by a constant.</p>
-<p># Arguments</p>
-<ul class="simple">
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code> - index of channel to increment. 0 for R, 1 for G and 2 for B.</p></li>
-<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">amount</span></code> - The amount to increment/decrement the channel’s value by for that pixel. A positive value will increment/decrement the channel’s value, a negative value will decrement the channel’s value.</p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – index of channel to increment. 0 for R, 1 for G and 2 for B.</p></li>
+<li><p><strong>amount</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – The amount to increment/decrement the channel’s value by for that pixel. A positive value will increment/decrement the channel’s value, a negative value will decrement the channel’s value.</p></li>
 </ul>
-<p># Example</p>
-<p><code class="docutils literal notranslate"><span class="pre">`no_run</span>
-<span class="pre">img.alter_channel(0,</span> <span class="pre">10)</span>
-<span class="pre">`</span></code></p>
+</dd>
+</dl>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -449,11 +464,12 @@ img.color(rgb)</p>
 <dt id="polaroid.Image.horizontal_strips_coloured">
 <code class="sig-name descname"><span class="pre">horizontal_strips_coloured</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.horizontal_strips_coloured" title="Permalink to this definition">¶</a></dt>
 <dd><p>Horizontal strips. Divide an image into a series of equal-height strips, for an artistic effect. Specify a color as well</p>
-<p># Arguments</p>
-<dl class="simple">
-<dt>num: :class:<a href="#id2"><span class="problematic" id="id3">`</span></a>int</dt><dd><p>the number of strips</p>
-</dd>
-<dt>rgb: <a class="reference internal" href="rgb.html#polaroid.Rgb" title="polaroid.Rgb"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rgb</span></code></a></dt><dd><p>rgb color for strips</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num</strong> (:class:<a href="#id2"><span class="problematic" id="id3">`</span></a>int) – the number of strips</p></li>
+<li><p><strong>rgb</strong> (<a class="reference internal" href="rgb.html#polaroid.Rgb" title="polaroid.Rgb"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rgb</span></code></a>) – rgb color for strips</p></li>
+</ul>
 </dd>
 </dl>
 <div class="admonition-example admonition">
@@ -672,11 +688,12 @@ img.color(rgb)</p>
 <dt id="polaroid.Image.vertical_strips_coloured">
 <code class="sig-name descname"><span class="pre">vertical_strips_coloured</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#polaroid.Image.vertical_strips_coloured" title="Permalink to this definition">¶</a></dt>
 <dd><p>Vertical strips. Divide an image into a series of equal-width strips, for an artistic effect. Specify a color as well</p>
-<p># Arguments</p>
-<dl class="simple">
-<dt>num: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></dt><dd><p>the number of strips</p>
-</dd>
-<dt>rgb: <a class="reference internal" href="rgb.html#polaroid.Rgb" title="polaroid.Rgb"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rgb</span></code></a></dt><dd><p>rgb color for strips</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the number of strips</p></li>
+<li><p><strong>rgb</strong> (<a class="reference internal" href="rgb.html#polaroid.Rgb" title="polaroid.Rgb"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rgb</span></code></a>) – rgb color for strips</p></li>
+</ul>
 </dd>
 </dl>
 <div class="admonition-example admonition">
