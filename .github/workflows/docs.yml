@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Docs
 on: [push]
 jobs:
   build-and-deploy:
@@ -33,7 +33,6 @@ jobs:
         run: |
           poetry run python setup.py install
           cd docs && poetry run make html
-          cd docs/_build/html && ls
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
