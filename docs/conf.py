@@ -142,7 +142,7 @@ todo_include_todos = True
 
 
 html_theme_options = {
-    "toc_title": "Polaroid",
+    "toc_title": f"Polaroid {version}",
     "repository_url": "https://github.com/daggy1234/polaroid",
     "use_issues_button": True,
 }
