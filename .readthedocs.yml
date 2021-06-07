@@ -6,10 +6,7 @@ sphinx:
   builder: html
 
 build:
-  image: latest
-  apt_packages:
-    - build-essential
-    - rustc
+  image: "7.0"
 
 python:
   version: 3.8
