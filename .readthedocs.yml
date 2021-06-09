@@ -6,7 +6,12 @@ sphinx:
   builder: html
 
 build:
-  image: "7.0"
+  image: ubuntu20
+  python: 3.9
+  system_packages:
+    - imagemagick
+  extras:
+    - rust==1.52.0
 
 python:
   version: 3.8
