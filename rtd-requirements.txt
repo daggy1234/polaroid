@@ -1,1 +1,1 @@
-readthedocs-custom-steps=0.3.0.post1
+readthedocs-custom-steps==0.3.0.post1
