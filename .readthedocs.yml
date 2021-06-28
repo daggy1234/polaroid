@@ -23,6 +23,8 @@ python:
         - docs
         - src
 
+    - requirements: rtd-requirements.txt
+
     - requirements: requirements.txt
 
     - method: setuptools
