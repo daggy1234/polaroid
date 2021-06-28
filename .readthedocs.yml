@@ -6,7 +6,7 @@ sphinx:
   builder: html
 
 build:
-  image: latest
+  image: 7.0
   apt_packages:
     - imagemagick
 
@@ -21,7 +21,7 @@ python:
 
     - method: setuptools
       path: .
-    
+
     - method: pip
       path: .
       extra_requirements:
