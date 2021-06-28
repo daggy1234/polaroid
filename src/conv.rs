@@ -8,30 +8,78 @@ use pyo3::prelude::*;
 
 #[pymethods]
 impl Image {
+    /// Apply for a box_blur
+    ///
+    /// Examples
+    /// --------
+    /// .. code-block:: python3
+    ///     img.box_blur()
+    ///
     fn box_blur(&mut self) -> PyResult<()> {
         conv::box_blur(&mut self.img);
         Ok(())
     }
+
+    /// Detect horizontal lines in an image, and highlight these only.
+    ///
+    /// Examples
+    /// --------
+    /// .. code-block:: python3
+    ///     img.detect_horizontal_lines()
+    ///
     fn detect_horizontal_lines(&mut self) -> PyResult<()> {
         conv::detect_horizontal_lines(&mut self.img);
         Ok(())
     }
+
+    /// Detect vertical lines in an image, and highlight these only.
+    ///
+    /// Examples
+    /// --------
+    /// .. code-block:: python3
+    ///     img.detect_vertical_lines()
+    ///
     fn detect_vertical_lines(&mut self) -> PyResult<()> {
         conv::detect_vertical_lines(&mut self.img);
         Ok(())
     }
+
+    /// Apply edge detection to an image, to create a dark version with its edges highlighted.
+    ///
+    /// Examples
+    /// --------
+    /// .. code-block:: python3
+    ///     img.edge_detection()
+    ///
     fn edge_detection(&mut self) -> PyResult<()> {
         conv::edge_detection(&mut self.img);
         Ok(())
     }
+
+    /// Preset edge effect.
+    ///
+    /// Examples
+    /// --------
+    /// .. code-block:: python3
+    ///     img.edge_one()
+    ///
     fn edge_one(&mut self) -> PyResult<()> {
         conv::edge_one(&mut self.img);
         Ok(())
     }
+
+    /// Apply an emboss effect to an image.
+    ///
+    /// Examples
+    /// --------
+    /// .. code-block:: python3
+    ///     img.emboss()
+    ///
     fn emboss(&mut self) -> PyResult<()> {
         conv::emboss(&mut self.img);
         Ok(())
     }
+
     fn gaussian_blur(&mut self, radius: i32) -> PyResult<()> {
         conv::gaussian_blur(&mut self.img, radius);
         Ok(())

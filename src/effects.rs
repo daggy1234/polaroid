@@ -107,7 +107,7 @@ impl Image {
     ///
     /// .. code-block:: python3
     ///
-    ///     img.adjust_contrast()
+    ///     img.adjust_contrast(30.0)
     ///
     fn adjust_contrast(&mut self, num: f32) -> PyResult<()> {
         if !(num <= -255.0 || num >= 255.0) {
