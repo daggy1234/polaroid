@@ -6,7 +6,7 @@ sphinx:
   builder: html
 
 build:
-  image: master
+  image: latest
   python: 3.9
   system_packages:
     - imagemagick
