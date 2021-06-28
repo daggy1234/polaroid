@@ -8,7 +8,9 @@ impl Image {
     ///
     /// Examples
     /// --------
+    ///
     /// .. code-block:: python3
+    ///
     ///     img.add_noise_rand()
     ///
     fn add_noise_rand(&mut self) -> PyResult<()> {
@@ -24,7 +26,9 @@ impl Image {
     ///
     /// Examples
     /// --------
+    ///
     /// .. code-block:: python3
+    ///
     ///     img.add_noise_rand()
     ///
     fn pink_noise(&mut self) -> PyResult<()> {

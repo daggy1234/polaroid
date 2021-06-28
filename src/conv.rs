@@ -13,6 +13,7 @@ impl Image {
     /// Examples
     /// --------
     /// .. code-block:: python3
+    ///
     ///     img.box_blur()
     ///
     fn box_blur(&mut self) -> PyResult<()> {
@@ -25,6 +26,7 @@ impl Image {
     /// Examples
     /// --------
     /// .. code-block:: python3
+    ///
     ///     img.detect_horizontal_lines()
     ///
     fn detect_horizontal_lines(&mut self) -> PyResult<()> {
@@ -37,6 +39,7 @@ impl Image {
     /// Examples
     /// --------
     /// .. code-block:: python3
+    ///
     ///     img.detect_vertical_lines()
     ///
     fn detect_vertical_lines(&mut self) -> PyResult<()> {
@@ -49,6 +52,7 @@ impl Image {
     /// Examples
     /// --------
     /// .. code-block:: python3
+    ///
     ///     img.edge_detection()
     ///
     fn edge_detection(&mut self) -> PyResult<()> {
@@ -61,6 +65,7 @@ impl Image {
     /// Examples
     /// --------
     /// .. code-block:: python3
+    ///
     ///     img.edge_one()
     ///
     fn edge_one(&mut self) -> PyResult<()> {
@@ -73,6 +78,7 @@ impl Image {
     /// Examples
     /// --------
     /// .. code-block:: python3
+    ///
     ///     img.emboss()
     ///
     fn emboss(&mut self) -> PyResult<()> {

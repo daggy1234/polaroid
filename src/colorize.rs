@@ -43,7 +43,9 @@ impl Image {
     /// Examples
     /// --------
     /// green colorize
+    ///
     /// .. code-block:: python3
+    ///
     ///     from photon import Rgb
     ///     rgb = Rgb(0, 255, 0)
     ///     img.color(rgb)
@@ -101,7 +103,9 @@ impl Image {
     /// Examples
     /// --------
     /// purple tint
+    ///
     /// .. code-block:: python3
+    ///
     ///     from photon import Rgb
     ///     rgb = Rgb(255, 0, 255)
     ///     img.color(rgb)

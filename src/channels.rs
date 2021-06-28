@@ -18,6 +18,7 @@ impl Image {
     /// --------
     ///
     /// .. code-block:: python3
+    ///
     ///     img.alter_channel(0, 10)
     ///
     fn alter_channel(&mut self, index: usize, amt: i16) -> PyResult<()> {
@@ -59,6 +60,7 @@ impl Image {
     /// --------
     ///
     /// .. code-block:: python3
+    ///
     ///     img.alter_blue_channel(10)
     ///
     fn alter_blue_channel(&mut self, amt: i16) -> PyResult<()> {
@@ -77,6 +79,7 @@ impl Image {
     /// --------
     ///
     /// .. code-block:: python3
+    ///
     ///     img.alter_green_channel(10)
     ///
     fn alter_green_channel(&mut self, amt: i16) -> PyResult<()> {
@@ -95,6 +98,7 @@ impl Image {
     /// --------
     ///
     /// .. code-block:: python3
+    ///
     ///     img.alter_red_channel(10)
     ///
     fn alter_red_channel(&mut self, amt: i16) -> PyResult<()> {
@@ -113,6 +117,7 @@ impl Image {
     /// --------
     ///
     /// .. code-block:: python3
+    ///
     ///     img.remove_blue_channel(50)
     ///
     fn remove_blue_channel(&mut self, min_filter: u8) -> PyResult<()> {
@@ -131,6 +136,7 @@ impl Image {
     /// --------
     ///
     /// .. code-block:: python3
+    ///
     ///     img.remove_green_channel(50)
     ///
     fn remove_green_channel(&mut self, min_filter: u8) -> PyResult<()> {
@@ -149,6 +155,7 @@ impl Image {
     /// --------
     ///
     /// .. code-block:: python3
+    ///
     ///     img.remove_red_channel(50)
     ///
     fn remove_red_channel(&mut self, min_filter: u8) -> PyResult<()> {
@@ -171,6 +178,7 @@ impl Image {
     /// --------
     ///
     /// .. code-block:: python3
+    ///
     ///    let rgb = polaroid.Rgb(20, 40, 60)
     ///    img.selective_desaturate(rgb, 0.1)
     ///
