@@ -7,11 +7,8 @@ sphinx:
 
 build:
   image: latest
-  python: 3.8
-  system_packages:
+  apt_packages:
     - imagemagick
-  extras:
-    - rust==1.52.0
 
 python:
   version: 3.8
