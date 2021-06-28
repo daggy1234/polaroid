@@ -14,15 +14,15 @@ python:
   version: 3.8
   system_packages: true
   install:
-    - method: pip
-      path: .
-      extra_requirements:
-        - docs
-        - src
 
     - requirements: rtd-requirements.txt
 
     - requirements: requirements.txt
 
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
+        - src
     - method: setuptools
       path: .
