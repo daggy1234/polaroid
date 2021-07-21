@@ -29,7 +29,7 @@ impl Image {
     ///     - mauve
     ///     - bluechrome
     ///     - vintage
-    ///     - prefume
+    ///     - perfume
     ///     - serenity
     ///
     /// Parameters
@@ -72,7 +72,7 @@ impl Image {
             "mauve" => Ok(filters::filter(im, "mauve")),
             "bluechrome" => Ok(filters::filter(im, "bluechrome")),
             "vintage" => Ok(filters::filter(im, "vintage")),
-            "purfume" => Ok(filters::filter(im, "perfume")),
+            "perfume" => Ok(filters::filter(im, "perfume")),
             "serenity" => Ok(filters::filter(im, "serenity")),
             _ => Err(PyValueError::new_err("Invalid Filter")),
         }
