@@ -1,3 +1,8 @@
 steps:
+- echo "readthedocs-custom-steps START"
+- echo "Updating Rust..."
 - rustup update
-- echo "Done"
+- echo "Installing polaroid..."
+- pip install .[docs,src]
+- echo "Build docs with Sphinx..."
+- python -m sphinx -T -b html -d _build/doctrees -D language=en . _build/html
