@@ -1,7 +1,8 @@
 steps:
 - echo "readthedocs-custom-steps START"
 - echo "Updating Rust..."
-- rustup update
+- curl -sSf https://sh.rustup.rs | sh -s -- --default-toolchain nightly --profile minimal -y && source $HOME/.cargo/env
+- rustc -V
 - echo "Installing polaroid..."
 - pip install .[docs,src]
 - echo "Build docs with Sphinx..."
