@@ -1,10 +1,5 @@
 version: 2
-
-sphinx:
-  configuration: docs/conf.py
-  fail_on_warning: false
-  builder: html
-
+mkdocs: {}
 build:
   image: "7.0"
   apt_packages:
