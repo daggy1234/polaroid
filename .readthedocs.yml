@@ -18,13 +18,3 @@ python:
     - requirements: rtd-requirements.txt
 
     - requirements: requirements.txt
-
-    - method: setuptools
-      path: .
-
-    - method: pip
-      path: .
-      extra_requirements:
-        - docs
-        - src
-    
