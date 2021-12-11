@@ -2,7 +2,7 @@
 """
 Polaroid
 ~~~~~~~~~~~~~~~~~~~
-Hyper Fast and safe image manipulation library for python . Powered by rust.
+Hyper Fast and safe image manipulation library for python. Powered by rust.
 :copyright: (c) 2020 Daggy
 :license: MIT, see LICENSE for more details.
 """
