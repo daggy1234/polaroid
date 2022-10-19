@@ -4,7 +4,7 @@
 
 ## Hyper fast image processing
 
-This is a Work in Progress.
+This is a Work in Progress. Still working on it!
 
 For all the examples, meme.png is used. Please replace that with whatever Image you use
 
